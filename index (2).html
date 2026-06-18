@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Click10 — Thi Thử Tiếng Anh Trên Máy Tính | Luyện Thi THPT</title>
+<meta name="description" content="Click10 là hệ thống hỗ trợ luyện thi và thi thử Tiếng Anh trực tuyến trên máy tính. Ngân hàng đề thi sát cấu trúc đề chính thức, giúp học sinh đánh giá năng lực, luyện kỹ năng làm bài trên máy và phân bổ thời gian hiệu quả. Hoàn toàn miễn phí.">
+<meta name="keywords" content="thi thử tiếng anh trên máy tính, luyện thi THPT tiếng anh, đề thi CBT, thi thử THPT online">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #100E1C;
+    --ink-soft: #1B1830;
+    --panel: #211D38;
+    --paper: #F3EFE3;
+    --paper-dim: #C9C4B4;
+    --yellow: #FCE94A;
+    --pink: #FF5C7E;
+    --mint: #6FF0B7;
+    --violet: #9A8CFF;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--ink);
+    color: var(--paper);
+    font-family: 'Space Grotesk', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, .display {
+    font-family: 'Archivo', sans-serif;
+    text-transform: uppercase;
+  }
+
+  /* noise texture for warmth, not flatness */
+  .noise {
+    position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: 0.5;
+    background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.035) 1px, transparent 0);
+    background-size: 3px 3px;
+  }
+
+  /* ============ NAV ============ */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+    padding: 18px 36px;
+    display: flex; align-items: center; justify-content: space-between;
+    background: rgba(16,14,28,0.7);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .logo {
+    font-family: 'Archivo', sans-serif;
+    font-size: 22px; font-weight: 900; letter-spacing: -0.5px;
+    text-transform: uppercase;
+    color: var(--paper);
+  }
+  .logo span { color: var(--yellow); }
+  .nav-links { display: flex; align-items: center; gap: 30px; list-style: none; }
+  .nav-links a {
+    color: rgba(243,239,227,0.65); text-decoration: none;
+    font-size: 14px; font-weight: 500; transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--paper); }
+  .nav-cta {
+    background: var(--yellow); color: var(--ink) !important;
+    padding: 9px 20px; border-radius: 100px;
+    font-weight: 700 !important; font-size: 13px !important;
+    transition: transform 0.15s !important;
+  }
+  .nav-cta:hover { transform: scale(1.05); }
+
+  /* ============ HERO ============ */
+  .hero {
+    position: relative; z-index: 1;
+    min-height: 100vh;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center;
+    padding: 140px 24px 80px;
+  }
+
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--pink); color: var(--ink);
+    padding: 7px 18px; border-radius: 100px;
+    font-size: 12.5px; font-weight: 700; letter-spacing: 0.02em;
+    text-transform: uppercase;
+    margin-bottom: 28px;
+    transform: rotate(-2deg);
+  }
+
+  .hero h1 {
+    font-size: clamp(54px, 11vw, 130px);
+    font-weight: 900; line-height: 0.92; letter-spacing: -3px;
+    color: var(--paper);
+    margin-bottom: 6px;
+  }
+  .hero h1 .glow { color: var(--yellow); }
+  .hero h1 .outline {
+    color: transparent;
+    -webkit-text-stroke: 2px var(--paper);
+  }
+
+  .hero-sub {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(16px, 2vw, 19px);
+    color: rgba(243,239,227,0.6);
+    max-width: 480px;
+    margin: 24px 0 40px;
+    line-height: 1.6;
+  }
+
+  .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
+
+  .btn-bold {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--yellow); color: var(--ink);
+    padding: 17px 34px; border-radius: 100px;
+    font-weight: 800; font-size: 16px; text-transform: uppercase; letter-spacing: 0.01em;
+    text-decoration: none;
+    transition: transform 0.18s, box-shadow 0.18s;
+    box-shadow: 0 0 0 0 rgba(252,233,74,0);
+  }
+  .btn-bold:hover { transform: translateY(-3px) rotate(-1deg); box-shadow: 0 10px 30px -8px rgba(252,233,74,0.5); }
+
+  .btn-outline {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: transparent; color: var(--paper);
+    padding: 17px 34px; border-radius: 100px;
+    font-weight: 700; font-size: 16px; text-transform: uppercase;
+    text-decoration: none; border: 2px solid rgba(243,239,227,0.3);
+    transition: all 0.18s;
+  }
+  .btn-outline:hover { border-color: var(--paper); transform: translateY(-3px); }
+
+  /* ============ LIVE SCOREBOARD — the signature element ============ */
+  .scoreboard {
+    margin-top: 64px;
+    display: flex; align-items: center; gap: 0;
+    background: var(--panel);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px;
+    padding: 6px;
+    box-shadow: 0 30px 80px -30px rgba(0,0,0,0.6);
+  }
+
+  .sb-label {
+    font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+    color: rgba(243,239,227,0.45);
+    padding: 0 18px;
+    white-space: nowrap;
+  }
+
+  .sb-digits {
+    display: flex; gap: 4px;
+    background: var(--ink);
+    border-radius: 12px;
+    padding: 14px 18px;
+  }
+
+  .digit-slot {
+    width: 36px; height: 52px;
+    background: rgba(255,255,255,0.04);
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden; position: relative;
+  }
+
+  .digit-slot span {
+    font-family: 'Archivo', sans-serif;
+    font-size: 32px; font-weight: 800;
+    color: var(--mint);
+  }
+
+  .digit-slot.dot span { color: rgba(243,239,227,0.4); font-size: 24px; }
+
+  .sb-pulse {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--mint);
+    margin-left: 16px; margin-right: 18px;
+    animation: pulse 1.4s infinite;
+    flex-shrink: 0;
+  }
+  @keyframes pulse { 0%,100%{opacity:1; transform:scale(1)} 50%{opacity:0.3; transform:scale(0.7)} }
+
+  /* ============ STATS STRIP ============ */
+  .stats-strip {
+    position: relative; z-index: 1;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    background: var(--ink-soft);
+  }
+  .stats-inner {
+    max-width: 1240px; margin: 0 auto;
+    display: grid; grid-template-columns: repeat(4, 1fr);
+  }
+  .stat-cell {
+    padding: 30px 24px; text-align: center;
+    border-left: 1px solid rgba(255,255,255,0.07);
+  }
+  .stat-cell:first-child { border-left: none; }
+  .stat-num {
+    font-family: 'Archivo', sans-serif;
+    font-size: 38px; font-weight: 900; letter-spacing: -1px;
+    color: var(--paper);
+  }
+  .stat-num.y { color: var(--yellow); }
+  .stat-label { font-size: 12.5px; color: rgba(243,239,227,0.5); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.03em; }
+
+  /* ============ SECTION GENERIC ============ */
+  section {
+    position: relative; z-index: 1;
+    padding: 110px 36px;
+    max-width: 1240px; margin: 0 auto;
+  }
+
+  .eyebrow {
+    display: inline-block;
+    font-size: 12.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--ink);
+    background: var(--mint);
+    padding: 5px 14px; border-radius: 100px;
+    margin-bottom: 22px;
+  }
+
+  .sec-title {
+    font-size: clamp(36px, 5vw, 58px);
+    font-weight: 900; letter-spacing: -2px; line-height: 1;
+    color: var(--paper);
+    margin-bottom: 18px;
+  }
+  .sec-title .accent { color: var(--yellow); }
+
+  .sec-desc {
+    font-size: 16px; color: rgba(243,239,227,0.55); line-height: 1.65;
+    max-width: 480px; margin-bottom: 56px;
+  }
+
+  /* ============ COUNTDOWN ============ */
+  .countdown-section { text-align: center; padding: 70px 36px; }
+
+  .about-strip {
+    position: relative; z-index: 1;
+    padding: 56px 36px;
+    max-width: 760px; margin: 0 auto;
+    text-align: center;
+  }
+  .about-strip p {
+    font-size: 16px; line-height: 1.75;
+    color: rgba(243,239,227,0.6);
+  }
+  .about-strip strong { color: var(--paper); font-weight: 700; }
+  .cd-label {
+    font-size: 12.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--pink); margin-bottom: 10px;
+  }
+  .cd-title {
+    font-family: 'Archivo', sans-serif;
+    font-size: clamp(20px, 2.6vw, 28px); font-weight: 800; text-transform: uppercase;
+    letter-spacing: -0.5px; color: var(--paper); margin-bottom: 30px;
+  }
+  .cd-wrap { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+  .cd-item {
+    background: var(--panel); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 14px; padding: 18px 26px; min-width: 90px;
+  }
+  .cd-num {
+    font-family: 'Archivo', sans-serif;
+    font-size: 36px; font-weight: 900; color: var(--yellow); line-height: 1; display: block;
+  }
+  .cd-unit { font-size: 10.5px; color: rgba(243,239,227,0.45); font-weight: 700; letter-spacing: 0.06em; margin-top: 8px; display: block; text-transform: uppercase; }
+
+  /* ============ EXAM GRID — energetic cards, rotated badges ============ */
+  .exam-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+    gap: 16px;
+  }
+
+  .exam-card {
+    background: var(--panel);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 18px;
+    padding: 26px;
+    text-decoration: none; color: inherit;
+    position: relative; overflow: hidden;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+  .exam-card:hover { transform: translateY(-6px); border-color: var(--yellow); }
+
+  .exam-card::before {
+    content: ''; position: absolute; top: -40%; right: -20%;
+    width: 160px; height: 160px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(252,233,74,0.12), transparent 70%);
+  }
+
+  .exam-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 18px; position: relative; }
+  .exam-num {
+    font-family: 'Archivo', sans-serif; font-size: 13px; font-weight: 800;
+    color: var(--violet); letter-spacing: 0.04em;
+  }
+  .exam-badge {
+    font-size: 10.5px; font-weight: 800; padding: 4px 12px; border-radius: 100px;
+    text-transform: uppercase; letter-spacing: 0.02em; transform: rotate(3deg);
+  }
+  .badge-hot { background: var(--pink); color: var(--ink); }
+  .badge-new { background: var(--mint); color: var(--ink); }
+  .badge-soon { background: rgba(255,255,255,0.08); color: rgba(243,239,227,0.5); }
+
+  .exam-title {
+    font-family: 'Archivo', sans-serif; font-size: 19px; font-weight: 800;
+    color: var(--paper); margin-bottom: 8px; text-transform: none; letter-spacing: -0.3px;
+  }
+  .exam-desc { font-size: 13px; color: rgba(243,239,227,0.5); line-height: 1.55; margin-bottom: 22px; }
+
+  .exam-meta { display: flex; gap: 16px; font-size: 12px; color: rgba(243,239,227,0.45); }
+
+  .exam-arrow {
+    position: absolute; bottom: 26px; right: 26px;
+    width: 34px; height: 34px; border-radius: 50%;
+    background: rgba(255,255,255,0.06);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; color: var(--paper);
+    transition: all 0.2s;
+  }
+  .exam-card:hover .exam-arrow { background: var(--yellow); color: var(--ink); transform: rotate(45deg); }
+
+  .exam-card.disabled { opacity: 0.4; pointer-events: none; }
+
+  /* ============ LEADERBOARD ============ */
+  .lb-wrap { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 50px; align-items: start; }
+  .lb-intro h3 {
+    font-family: 'Archivo', sans-serif; font-size: 30px; font-weight: 900;
+    text-transform: uppercase; letter-spacing: -1px; margin-bottom: 16px; color: var(--paper);
+  }
+  .lb-intro p { font-size: 15px; color: rgba(243,239,227,0.55); line-height: 1.65; }
+
+  .lb-card { background: var(--panel); border: 1px solid rgba(255,255,255,0.08); border-radius: 18px; overflow: hidden; }
+  .lb-head { padding: 18px 24px; border-bottom: 1px solid rgba(255,255,255,0.08); display: flex; justify-content: space-between; align-items: center; }
+  .lb-head-title { font-family: 'Archivo', sans-serif; font-size: 14px; font-weight: 800; text-transform: uppercase; color: var(--paper); }
+  .lb-head-meta { font-size: 11.5px; color: rgba(243,239,227,0.4); }
+
+  .lb-row { display: grid; grid-template-columns: 30px 38px 1fr auto auto; align-items: center; gap: 14px; padding: 14px 24px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+  .lb-row:last-child { border-bottom: none; }
+  .lb-rank { font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 15px; color: rgba(243,239,227,0.4); text-align: center; }
+  .lb-rank.r1 { color: var(--yellow); }
+  .lb-rank.r2 { color: rgba(243,239,227,0.7); }
+  .lb-rank.r3 { color: var(--pink); }
+  .lb-avatar { width: 34px; height: 34px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800; color: var(--ink); }
+  .lb-name { font-weight: 700; font-size: 14px; color: var(--paper); }
+  .lb-school { font-size: 11.5px; color: rgba(243,239,227,0.45); margin-top: 1px; }
+  .lb-score { font-family: 'Archivo', sans-serif; font-size: 18px; font-weight: 800; color: var(--mint); }
+  .lb-time { font-size: 11.5px; color: rgba(243,239,227,0.4); text-align: right; }
+
+  /* ============ FEATURES ============ */
+  .feat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .feat-cell { background: var(--panel); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 30px 26px; transition: border-color 0.2s; }
+  .feat-cell:hover { border-color: var(--violet); }
+  .feat-icon { width: 42px; height: 42px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 19px; margin-bottom: 18px; }
+  .feat-title { font-family: 'Archivo', sans-serif; font-size: 17px; font-weight: 800; margin-bottom: 9px; color: var(--paper); text-transform: none; letter-spacing: -0.2px; }
+  .feat-desc { font-size: 13.5px; color: rgba(243,239,227,0.5); line-height: 1.6; }
+
+  /* ============ CTA ============ */
+  .cta-section { text-align: center; padding: 100px 36px 130px; }
+  .cta-box {
+    background: linear-gradient(135deg, var(--violet), var(--pink));
+    border-radius: 28px; padding: 80px 40px;
+    max-width: 780px; margin: 0 auto;
+    position: relative; overflow: hidden;
+  }
+  .cta-box h2 {
+    font-family: 'Archivo', sans-serif;
+    font-size: clamp(34px, 5vw, 52px); font-weight: 900; letter-spacing: -2px;
+    color: var(--ink); margin-bottom: 16px; line-height: 1;
+  }
+  .cta-box p { color: rgba(16,14,28,0.7); font-size: 16px; margin-bottom: 34px; font-weight: 500; }
+  .cta-box .btn-bold { background: var(--ink); color: var(--paper); }
+  .cta-box .btn-bold:hover { background: #000; }
+
+  /* ============ FOOTER ============ */
+  footer {
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding: 32px 36px;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 12px;
+    max-width: 1240px; margin: 0 auto;
+  }
+  .footer-logo { font-family: 'Archivo', sans-serif; font-size: 17px; font-weight: 900; text-transform: uppercase; color: var(--paper); }
+  .footer-logo span { color: var(--yellow); }
+  .footer-text { font-size: 12.5px; color: rgba(243,239,227,0.4); }
+
+  /* ============ SCROLL REVEAL ============ */
+  .fade-in { opacity: 0; transform: translateY(22px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 880px) {
+    nav { padding: 14px 18px; }
+    .nav-links li:not(:last-child) { display: none; }
+    .scoreboard { flex-direction: column; padding: 14px; gap: 10px; }
+    .sb-label { padding: 0; }
+    .sb-pulse { display: none; }
+    .stats-inner { grid-template-columns: repeat(2, 1fr); }
+    .stat-cell:nth-child(3) { border-left: none; }
+    section { padding: 70px 18px; }
+    .lb-wrap, .feat-grid { grid-template-columns: 1fr; }
+    .digit-slot { width: 28px; height: 42px; }
+    .digit-slot span { font-size: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="noise"></div>
+
+<nav>
+  <div class="logo">Click<span>10</span></div>
+  <ul class="nav-links" style="list-style:none; display:flex; gap:30px;">
+    <li><a href="#de-thi">Đề Thi</a></li>
+    <li><a href="#leaderboard">Xếp Hạng</a></li>
+    <li><a href="#tinh-nang">Tính Năng</a></li>
+    <li><a href="#de-thi" class="nav-cta">Thi Ngay</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-tag">⚡ Chuẩn CBT thi máy tính 2027</div>
+  <h1>THI THỬ<br><span class="glow">TIẾNG ANH</span><br><span class="outline">TRÊN MÁY</span></h1>
+  <p class="hero-sub">Vào đề, bấm giờ, nộp bài. Biết ngay mình đứng đâu — trước khi bước vào phòng thi thật.</p>
+  <div class="hero-btns">
+    <a href="#de-thi" class="btn-bold">Thi ngay →</a>
+    <a href="#leaderboard" class="btn-outline">Xem xếp hạng</a>
+  </div>
+
+  <!-- LIVE SCOREBOARD signature element -->
+  <div class="scoreboard">
+    <span class="sb-label">Điểm gần nhất</span>
+    <span class="sb-pulse"></span>
+    <div class="sb-digits">
+      <div class="digit-slot" id="d1"><span>8</span></div>
+      <div class="digit-slot dot"><span>.</span></div>
+      <div class="digit-slot" id="d2"><span>7</span></div>
+      <div class="digit-slot" id="d3"><span>5</span></div>
+    </div>
+    <span class="sb-label" id="sbName">Minh Khôi · 42p</span>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats-strip">
+  <div class="stats-inner">
+    <div class="stat-cell"><div class="stat-num y">100<span style="font-size:22px">+</span></div><div class="stat-label">Đề thi</div></div>
+    <div class="stat-cell"><div class="stat-num">40</div><div class="stat-label">Câu / đề</div></div>
+    <div class="stat-cell"><div class="stat-num">50</div><div class="stat-label">Phút</div></div>
+    <div class="stat-cell"><div class="stat-num">0đ</div><div class="stat-label">Miễn phí</div></div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<div class="about-strip fade-in">
+  <p><strong>Click10</strong> là hệ thống hỗ trợ luyện thi và thi thử Tiếng Anh trực tuyến trên máy tính. Ngân hàng đề thi sát cấu trúc đề chính thức, giúp học sinh đánh giá năng lực, luyện kỹ năng làm bài trên máy và phân bổ thời gian hiệu quả — hoàn toàn miễn phí.</p>
+</div>
+
+<!-- COUNTDOWN -->
+<div class="countdown-section">
+  <div class="cd-label">⏳ Đếm ngược</div>
+  <div class="cd-title">Còn bao nhiêu ngày đến kỳ thi THPT 2027?</div>
+  <div class="cd-wrap">
+    <div class="cd-item"><span class="cd-num" id="cd-days">--</span><span class="cd-unit">Ngày</span></div>
+    <div class="cd-item"><span class="cd-num" id="cd-hours">--</span><span class="cd-unit">Giờ</span></div>
+    <div class="cd-item"><span class="cd-num" id="cd-mins">--</span><span class="cd-unit">Phút</span></div>
+    <div class="cd-item"><span class="cd-num" id="cd-secs">--</span><span class="cd-unit">Giây</span></div>
+  </div>
+</div>
+
+<!-- ĐỀ THI -->
+<section id="de-thi">
+  <span class="eyebrow fade-in">Kho đề thi</span>
+  <h2 class="sec-title fade-in">CHỌN ĐỀ<br><span class="accent">VÀ CHIẾN</span></h2>
+  <p class="sec-desc fade-in">40 câu, đúng cấu trúc thi thật. Nộp bài là biết điểm, biết sai ở đâu, biết tại sao.</p>
+
+  <div class="exam-grid">
+    <a href="#" class="exam-card fade-in">
+      <div class="exam-top"><span class="exam-num">ĐỀ 01</span><span class="exam-badge badge-hot">🔥 Hot</span></div>
+      <div class="exam-title">Đề Đặc Biệt Số 1</div>
+      <div class="exam-desc">Grammar · Reading · Vocabulary · Writing — bám ma trận Bộ GD 2026</div>
+      <div class="exam-meta"><span>⏱ 50p</span><span>❓ 40 câu</span><span>👥 1.2k thi</span></div>
+      <div class="exam-arrow">→</div>
+    </a>
+    <a href="#" class="exam-card fade-in">
+      <div class="exam-top"><span class="exam-num">ĐỀ 02</span><span class="exam-badge badge-new">✨ Mới</span></div>
+      <div class="exam-title">Đề Đặc Biệt Số 2</div>
+      <div class="exam-desc">Tense · Modal verbs · Reading nâng cao</div>
+      <div class="exam-meta"><span>⏱ 50p</span><span>❓ 40 câu</span><span>👥 890 thi</span></div>
+      <div class="exam-arrow">→</div>
+    </a>
+    <a href="#" class="exam-card fade-in">
+      <div class="exam-top"><span class="exam-num">ĐỀ 03</span><span class="exam-badge badge-new">✨ Mới</span></div>
+      <div class="exam-title">Đề Đặc Biệt Số 3</div>
+      <div class="exam-desc">Relative clauses · Conditionals — nhiều bẫy ngữ pháp</div>
+      <div class="exam-meta"><span>⏱ 50p</span><span>❓ 40 câu</span><span>👥 654 thi</span></div>
+      <div class="exam-arrow">→</div>
+    </a>
+    <a href="#" class="exam-card fade-in">
+      <div class="exam-top"><span class="exam-num">ĐỀ 04</span><span class="exam-badge badge-soon">⚡ Speed</span></div>
+      <div class="exam-title">Đề Đặc Biệt Số 4</div>
+      <div class="exam-desc">Reading nặng — luyện tốc độ đọc hiểu</div>
+      <div class="exam-meta"><span>⏱ 50p</span><span>❓ 40 câu</span><span>👥 432 thi</span></div>
+      <div class="exam-arrow">→</div>
+    </a>
+    <a href="#" class="exam-card fade-in">
+      <div class="exam-top"><span class="exam-num">ĐỀ 05</span><span class="exam-badge badge-soon">📚 Tổng hợp</span></div>
+      <div class="exam-title">Đề Đặc Biệt Số 5</div>
+      <div class="exam-desc">Cân bằng kỹ năng — kiểm tra tổng hợp</div>
+      <div class="exam-meta"><span>⏱ 50p</span><span>❓ 40 câu</span><span>👥 378 thi</span></div>
+      <div class="exam-arrow">→</div>
+    </a>
+    <a href="#" class="exam-card fade-in disabled">
+      <div class="exam-top"><span class="exam-num">ĐỀ 06</span><span class="exam-badge badge-soon">🔜 Sắp ra</span></div>
+      <div class="exam-title">Đề Đặc Biệt Số 6</div>
+      <div class="exam-desc">Đang chuẩn bị — ra mắt sớm!</div>
+      <div class="exam-meta"><span>⏱ 50p</span><span>❓ 40 câu</span></div>
+    </a>
+  </div>
+</section>
+
+<!-- LEADERBOARD -->
+<section id="leaderboard">
+  <div class="lb-wrap">
+    <div class="lb-intro fade-in">
+      <span class="eyebrow">Xếp hạng</span>
+      <h3>Ai đang<br>dẫn đầu?</h3>
+      <p>Thi xong, điểm lên bảng ngay. Không đăng ký, chỉ cần dám thử.</p>
+    </div>
+    <div class="lb-card fade-in">
+      <div class="lb-head"><span class="lb-head-title">🏆 Top tuần này</span><span class="lb-head-meta">Live</span></div>
+      <div class="lb-row"><span class="lb-rank r1">1</span><div class="lb-avatar" style="background:var(--yellow)">MK</div><div><div class="lb-name">Minh Khôi</div><div class="lb-school">THPT Phú Điền</div></div><span class="lb-score">9.25</span><span class="lb-time">42p</span></div>
+      <div class="lb-row"><span class="lb-rank r2">2</span><div class="lb-avatar" style="background:var(--mint)">NH</div><div><div class="lb-name">Ngọc Hân</div><div class="lb-school">THPT Phú Điền</div></div><span class="lb-score">9.00</span><span class="lb-time">51p</span></div>
+      <div class="lb-row"><span class="lb-rank r3">3</span><div class="lb-avatar" style="background:var(--pink)">TĐ</div><div><div class="lb-name">Thành Đạt</div><div class="lb-school">THPT Tháp Mười</div></div><span class="lb-score">8.75</span><span class="lb-time">48p</span></div>
+      <div class="lb-row"><span class="lb-rank">4</span><div class="lb-avatar" style="background:var(--violet)">LA</div><div><div class="lb-name">Lan Anh</div><div class="lb-school">THPT Cao Lãnh</div></div><span class="lb-score">8.50</span><span class="lb-time">55p</span></div>
+      <div class="lb-row"><span class="lb-rank">5</span><div class="lb-avatar" style="background:#5DBFE0">HN</div><div><div class="lb-name">Hoàng Nam</div><div class="lb-school">THPT Hồng Ngự</div></div><span class="lb-score">8.25</span><span class="lb-time">58p</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- TÍNH NĂNG -->
+<section id="tinh-nang">
+  <span class="eyebrow fade-in">Tính năng</span>
+  <h2 class="sec-title fade-in">THI ĐỂ<br><span class="accent">THẤY RÕ MÌNH</span></h2>
+  <p class="sec-desc fade-in">Click10 cho bạn thấy mình tiến bộ ở đâu — mạnh gì, yếu gì, ôn gì tiếp.</p>
+
+  <div class="feat-grid">
+    <div class="feat-cell fade-in"><div class="feat-icon" style="background:rgba(252,233,74,0.15)">💻</div><div class="feat-title">Giao diện thi thật</div><div class="feat-desc">Giống hệt máy tính thi 2027 — không bất ngờ khi vào phòng thi.</div></div>
+    <div class="feat-cell fade-in"><div class="feat-icon" style="background:rgba(111,240,183,0.15)">⚡</div><div class="feat-title">Chấm điểm tức thì</div><div class="feat-desc">Nộp bài là thấy điểm ngay. Không đợi, không tự tra đáp án.</div></div>
+    <div class="feat-cell fade-in"><div class="feat-icon" style="background:rgba(255,92,126,0.15)">🔍</div><div class="feat-title">Giải thích từng câu</div><div class="feat-desc">Không chỉ đáp án đúng — bẫy nằm ở đâu trong các lựa chọn còn lại.</div></div>
+    <div class="feat-cell fade-in"><div class="feat-icon" style="background:rgba(154,140,255,0.15)">🏆</div><div class="feat-title">Bảng xếp hạng</div><div class="feat-desc">Thi xong lên bảng ngay. Thách bạn bè, giữ vị trí top.</div></div>
+    <div class="feat-cell fade-in"><div class="feat-icon" style="background:rgba(252,233,74,0.15)">📊</div><div class="feat-title">Theo dõi tiến bộ</div><div class="feat-desc">Vài đề là thấy Grammar mạnh, Vocab yếu — biết ôn gì.</div></div>
+    <div class="feat-cell fade-in"><div class="feat-icon" style="background:rgba(111,240,183,0.15)">🆓</div><div class="feat-title">Hoàn toàn miễn phí</div><div class="feat-desc">Không tài khoản, không phí, không quảng cáo.</div></div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-section">
+  <div class="cta-box fade-in">
+    <h2>SẴN SÀNG<br>CHƯA?</h2>
+    <p>Miễn phí hoàn toàn. Không cần đăng ký. Mở ra là thi được.</p>
+    <a href="#de-thi" class="btn-bold">Bắt đầu thi thử →</a>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-logo">Click<span>10</span></div>
+  <div class="footer-text">Thi thử Tiếng Anh trên máy tính · Chuẩn CBT THPT · Miễn phí · Đồng Tháp</div>
+</footer>
+
+<script>
+  // Countdown
+  function updateCountdown() {
+    const target = new Date('2027-06-10T07:30:00+07:00');
+    const now = new Date();
+    const diff = target - now;
+    if (diff <= 0) return;
+    const days = Math.floor(diff / 86400000);
+    const hours = Math.floor((diff % 86400000) / 3600000);
+    const mins = Math.floor((diff % 3600000) / 60000);
+    const secs = Math.floor((diff % 60000) / 1000);
+    document.getElementById('cd-days').textContent = String(days).padStart(2,'0');
+    document.getElementById('cd-hours').textContent = String(hours).padStart(2,'0');
+    document.getElementById('cd-mins').textContent = String(mins).padStart(2,'0');
+    document.getElementById('cd-secs').textContent = String(secs).padStart(2,'0');
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Live scoreboard — cycles through recent scores like a real-time feed
+  const feed = [
+    { score: '8.75', name: 'Minh Khôi · 42p' },
+    { score: '9.25', name: 'Ngọc Hân · 38p' },
+    { score: '7.50', name: 'Thành Đạt · 51p' },
+    { score: '9.00', name: 'Lan Anh · 44p' },
+    { score: '8.25', name: 'Hoàng Nam · 49p' },
+  ];
+  let feedIdx = 0;
+
+  function rollDigit(el, newDigit) {
+    const span = document.createElement('span');
+    span.textContent = newDigit;
+    span.style.position = 'absolute';
+    span.style.top = '100%';
+    span.style.left = '0';
+    span.style.right = '0';
+    span.style.textAlign = 'center';
+    span.style.transition = 'transform 0.4s cubic-bezier(.3,1,.4,1)';
+    el.style.position = 'relative';
+    el.appendChild(span);
+    requestAnimationFrame(() => {
+      el.firstChild.style.transform = 'translateY(-100%)';
+      span.style.transform = 'translateY(-100%)';
+      setTimeout(() => {
+        if (el.firstChild) el.removeChild(el.firstChild);
+        span.style.position = 'static';
+        span.style.transform = 'none';
+      }, 420);
+    });
+  }
+
+  function cycleScoreboard() {
+    feedIdx = (feedIdx + 1) % feed.length;
+    const item = feed[feedIdx];
+    const digits = item.score.replace('.', '');
+    rollDigit(document.getElementById('d1'), digits[0]);
+    rollDigit(document.getElementById('d2'), digits[1]);
+    rollDigit(document.getElementById('d3'), digits[2]);
+    document.getElementById('sbName').textContent = item.name;
+  }
+  setInterval(cycleScoreboard, 3200);
+</script>
+</body>
+</html>
