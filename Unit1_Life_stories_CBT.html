@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Kiểm tra Unit 1 – Life Stories We Admire</title>
+<style>
+:root{
+  --desk:#e6e9ee; --paper:#ffffff; --ink:#1f2530; --muted:#596273; --rule:#d3d9e2;
+  --board:#1f5c4d; --board-dark:#184a3e; --chalk:#f4f7f2;
+  --graphite:#2b303a; --mark:#ffe58f; --pen:#b8321f; --ok:#1f7a4d;
+  --serif:Charter,"Bitstream Charter","Sitka Text",Cambria,Georgia,"Noto Serif","Times New Roman",serif;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--desk);color:var(--ink);font:16px/1.5 var(--sans);min-height:100vh}
+[hidden]{display:none!important}
+button{font-family:inherit}
+u{text-decoration-thickness:1.5px;text-underline-offset:3px}
+:focus-visible{outline:3px solid #2f8f79;outline-offset:2px}
+
+/* ---------- buttons ---------- */
+.btn{font:600 16px/1.2 var(--sans);border:0;border-radius:8px;padding:13px 18px;cursor:pointer;background:var(--board);color:var(--chalk);min-height:46px}
+.btn:hover{background:var(--board-dark)}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.btn.ghost{background:#fff;color:var(--ink);border:1.5px solid var(--rule)}
+.btn.ghost:hover{background:#f3f5f8}
+.btn.light{background:rgba(255,255,255,.14);color:var(--chalk);border:1.5px solid rgba(255,255,255,.35)}
+.btn.light:hover{background:rgba(255,255,255,.24)}
+.btn.sm{padding:8px 12px;min-height:38px;font-size:15px}
+.btn.flagged{border-color:var(--pen);color:var(--pen)}
+
+/* ---------- login ---------- */
+.wrap{max-width:540px;margin:0 auto;padding:30px 18px 48px}
+.login h1{font:700 28px/1.2 var(--serif);margin:0 0 6px}
+.login .sub{margin:0 0 22px;color:var(--muted)}
+.card{background:var(--paper);border:1px solid var(--rule);border-radius:6px;padding:20px}
+.field{margin:0 0 16px}
+.field label{display:block;font-weight:600;margin:0 0 6px}
+.field input,.field select{width:100%;font:inherit;font-size:17px;padding:12px;border:1.5px solid #b9c1ce;border-radius:8px;background:#fff;color:var(--ink);min-height:48px}
+.field input:focus,.field select:focus{border-color:var(--board);outline:3px solid #a9d6c9;outline-offset:0}
+.hint{font-size:14px;color:var(--muted);margin:5px 0 0}
+.err{color:var(--pen);font-weight:600;margin:12px 0 0;min-height:1.4em}
+.srv{font-size:13px;line-height:1.4;color:var(--muted);margin:10px 0 0}
+.srv.bad{color:var(--pen)}
+#crash{position:fixed;left:0;right:0;bottom:0;z-index:99;background:var(--pen);color:#fff;padding:10px 14px;font:600 14px/1.35 var(--sans)}
+.notice{border-left:4px solid var(--pen);background:#fff;padding:10px 14px;margin:0 0 16px;font-size:15px}
+.notice.info{border-color:var(--board)}
+.rules{margin:22px 0 0;padding:0 0 0 20px;color:var(--muted);font-size:15px}
+.rules li{margin:0 0 6px}
+.resume{margin:0 0 16px;padding:14px 16px;border:1.5px solid var(--board);border-radius:8px;background:#fff}
+.resume p{margin:0 0 10px}
+.row{display:flex;gap:10px;flex-wrap:wrap}
+
+/* ---------- exam frame ---------- */
+.bar{position:sticky;top:0;z-index:20;background:var(--board);color:var(--chalk);display:flex;align-items:center;gap:10px;padding:8px 14px;padding-top:calc(8px + env(safe-area-inset-top))}
+.bar .who{flex:1;min-width:0;font:600 15px/1.25 var(--sans)}
+.bar .who span{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.bar .who small{display:block;font-weight:400;opacity:.8}
+.timer{font:700 22px/1 var(--sans);font-variant-numeric:tabular-nums;letter-spacing:.02em;min-width:64px;text-align:center}
+.timer.low{color:#ffd3cb}
+.tag{display:inline-block;background:var(--mark);color:#3a3000;border-radius:4px;padding:1px 6px;font:600 12px var(--sans);margin-left:6px}
+.stage{display:grid;grid-template-columns:minmax(0,1fr);gap:14px;padding:14px;max-width:1500px;margin:0 auto;padding-bottom:calc(92px + env(safe-area-inset-bottom))}
+.qarea{display:grid;gap:14px;align-content:start;min-width:0}
+.paper{background:var(--paper);border:1px solid var(--rule);border-radius:6px;padding:18px}
+.side{display:none}
+.nav{position:fixed;left:0;right:0;bottom:0;z-index:20;display:flex;gap:8px;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:#fff;border-top:1px solid var(--rule)}
+.nav .btn{flex:1;padding:12px 8px;font-size:15px;white-space:nowrap}
+.nav .btn#btnFlag{flex:.85}
+.only-narrow{display:inline-block}
+
+/* ---------- question paper ---------- */
+.qbox{-webkit-user-select:none;user-select:none}
+.q-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin:0 0 4px}
+.q-num{font:700 24px/1.2 var(--serif)}
+.q-mark{font:600 13px var(--sans);color:var(--pen)}
+.q-dir{font:italic 14px/1.4 var(--sans);color:var(--muted);margin:0 0 14px}
+.q-stem{font:19px/1.6 var(--serif);margin:0 0 16px}
+.q-stem.plain{margin-bottom:12px}
+.utts{margin:0 0 16px;padding:0}
+.utt{font:18px/1.55 var(--serif);margin:0 0 8px;padding-left:1.7em;text-indent:-1.7em}
+.utt b{display:inline-block;width:1.7em;text-indent:0}
+.exch p{font:19px/1.55 var(--serif);margin:0 0 6px}
+.opts{display:grid;gap:8px}
+.opt{display:flex;align-items:flex-start;gap:12px;width:100%;text-align:left;font:18px/1.45 var(--serif);padding:11px 12px;border:1.5px solid var(--rule);border-radius:8px;background:#fff;color:var(--ink);cursor:pointer;min-height:52px}
+.opt:hover{border-color:#9aa5b6}
+.opt .chip{flex:none;width:30px;height:30px;border-radius:50%;border:2px solid #7a8394;display:grid;place-items:center;font:700 14px var(--sans);color:#4f5869;margin-top:1px;transition:background-color .12s,transform .12s}
+.opt.on{border-color:var(--graphite);background:#f0f2f6}
+.opt.on .chip{background:var(--graphite);border-color:var(--graphite);color:#fff;transform:scale(1.06)}
+.q-tools{display:flex;justify-content:flex-end;margin-top:10px}
+.linkbtn{background:none;border:0;padding:6px 2px;font:14px var(--sans);color:var(--muted);text-decoration:underline;cursor:pointer}
+
+/* ---------- passage ---------- */
+.passage{font:17px/1.7 var(--serif)}
+.passage h2{font:700 19px/1.3 var(--serif);margin:0 0 10px;text-align:center}
+.passage p{margin:0 0 12px;text-align:left}
+.passage .ph{display:flex;justify-content:space-between;align-items:center;margin:-6px 0 8px;font:600 13px var(--sans);color:var(--muted)}
+.passage.collapsed .pbody{display:none}
+.pbody{max-height:30vh;overflow:auto;padding-right:4px;position:relative}
+.blank{border-bottom:2px solid #7a8394;white-space:nowrap;padding:0 2px}
+.blank.done{color:var(--graphite);font-weight:600}
+.blank.active{background:var(--mark);border-radius:3px}
+
+/* ---------- answer sheet ---------- */
+.sheet{background:var(--paper);border:1px solid var(--rule);border-radius:6px;padding:12px 12px 14px}
+.sheet h2{font:600 15px/1.3 var(--sans);margin:0 0 2px}
+.sheet .cnt{font:13px var(--sans);color:var(--muted);margin:0 0 10px}
+.rows{display:grid;grid-auto-flow:column;grid-template-rows:repeat(20,auto);gap:1px 14px}
+.rw{display:flex;align-items:center;gap:4px;padding:1px 3px;border-radius:4px}
+.rw.cur{background:var(--mark)}
+.rw .n{width:26px;text-align:right;font:600 13px var(--sans);color:var(--muted);background:none;border:0;padding:4px 0;cursor:pointer;position:relative}
+.rw.flag .n::after{content:"";position:absolute;right:-3px;top:5px;width:6px;height:6px;border-radius:50%;background:var(--pen)}
+.bub{width:24px;height:24px;border-radius:50%;border:1.5px solid #7a8394;background:#fff;font:600 11px var(--sans);color:#5b6579;padding:0;cursor:pointer;display:grid;place-items:center;transition:background-color .1s}
+.bub.on{background:var(--graphite);border-color:var(--graphite);color:#fff}
+.legend{font:12.5px/1.4 var(--sans);color:var(--muted);margin:10px 0 0}
+
+/* ---------- overlays ---------- */
+.veil{position:fixed;inset:0;background:rgba(24,30,38,.6);display:none;align-items:center;justify-content:center;z-index:60;padding:16px}
+.veil.show{display:flex}
+.dlg{background:#fff;border-radius:12px;max-width:440px;width:100%;padding:20px;max-height:92vh;overflow:auto}
+.dlg h2{font:700 21px/1.25 var(--serif);margin:0 0 8px}
+.dlg p{margin:0 0 10px}
+.dlg .row{margin-top:14px;justify-content:flex-end}
+.dlg.wide{max-width:560px}
+#sheetVeil{align-items:flex-end}
+#sheetVeil .dlg{border-radius:12px 12px 0 0;max-width:640px;padding:12px 12px calc(12px + env(safe-area-inset-bottom))}
+#sheetVeil .sheet{border:0;padding:0}
+@media (max-width:420px){
+  .rw{padding:2px 1px}
+  .rows{gap:2px 10px}
+}
+@media (max-width:340px){
+  .rows{grid-auto-flow:row;grid-template-rows:none;grid-template-columns:1fr}
+}
+.toast{position:fixed;left:50%;top:70px;transform:translateX(-50%);background:var(--graphite);color:#fff;padding:10px 16px;border-radius:8px;font:600 15px var(--sans);z-index:70;max-width:92vw;text-align:center}
+.wm{position:fixed;left:-30%;top:-30%;width:160%;height:160%;transform:rotate(-24deg);display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));align-content:space-around;pointer-events:none;z-index:40;opacity:.04;font:600 15px var(--sans);color:#000;overflow:hidden}
+.wm span{padding:22px 10px;white-space:nowrap}
+
+/* ---------- done ---------- */
+.done h1{font:700 30px/1.2 var(--serif);margin:0 0 6px}
+.score{font:700 54px/1.1 var(--serif);margin:14px 0 2px}
+.score small{font:600 20px var(--sans);color:var(--muted)}
+.ref{color:var(--muted);font-size:14px;margin-top:16px}
+
+/* ---------- wide screens ---------- */
+@media (min-width:760px){
+  .stage{padding:18px}
+  .paper{padding:22px 24px}
+}
+@media (min-width:1100px){
+  .only-narrow{display:none}
+  .stage{grid-template-columns:minmax(0,1fr) 344px;align-items:start}
+  .side{display:block;position:sticky;top:78px;max-height:calc(100vh - 168px);overflow:auto}
+  .qarea.has-passage{grid-template-columns:minmax(0,1.05fr) minmax(0,1fr)}
+  .qarea.has-passage .passage-box{position:sticky;top:78px;max-height:calc(100vh - 170px);overflow:auto}
+  .pbody{max-height:none;overflow:visible}
+  .passage .ph .linkbtn{display:none}
+  .nav{left:0;right:0;justify-content:center}
+  .nav .btn,.nav .btn#btnFlag{flex:0 1 220px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@media print{body>*{display:none!important}}
+</style>
+</head>
+<body>
+<noscript><div class="wrap"><p>Trang này cần bật JavaScript để làm bài.</p></div></noscript>
+
+<!-- ================= ĐĂNG NHẬP ================= -->
+<main id="login" class="login" hidden>
+  <div class="wrap">
+    <h1 id="lgTitle">Kiểm tra Unit 1 – Life Stories We Admire</h1>
+    <p class="sub" id="lgSub">Tiếng Anh 12 (Global Success)</p>
+    <div id="banner"></div>
+    <div id="resume" class="resume" hidden>
+      <p><b id="rsName"></b> đang có bài làm dở. Em muốn tiếp tục không?</p>
+      <div class="row"><button class="btn" id="rsGo" type="button">Tiếp tục làm bài</button><button class="btn ghost" id="rsDrop" type="button">Không phải em</button></div>
+    </div>
+    <form id="form" class="card" autocomplete="off" novalidate>
+      <div class="field"><label for="fName">Họ và tên</label><input id="fName" name="name" type="text" autocomplete="off" autocapitalize="words" maxlength="60" placeholder="Nguyễn Văn An"><p class="hint">Ghi đầy đủ họ và tên có dấu. Nếu trùng tên bạn trong lớp, thêm số thứ tự sau tên.</p></div>
+      <div class="field"><label for="fCls">Lớp</label><select id="fCls" hidden></select><input id="fClsText" type="text" autocomplete="off" autocapitalize="characters" maxlength="10" placeholder="12A1"></div>
+      <div class="field" id="codeField"><label for="fCode">Mã phòng thi</label><input id="fCode" type="text" autocomplete="off" autocapitalize="characters" maxlength="12" placeholder="Giáo viên đọc mã tại lớp"></div>
+      <button class="btn" id="btnStart" type="submit" style="width:100%">Bắt đầu làm bài</button>
+      <p class="err" id="lgErr" role="alert"></p>
+    </form>
+    <p class="srv" id="srv"></p>
+    <ul class="rules">
+      <li>40 câu trắc nghiệm, làm trong 40 phút. Đồng hồ chạy từ lúc em bấm Bắt đầu.</li>
+      <li>Mỗi em nhận thứ tự câu và thứ tự đáp án riêng.</li>
+      <li>Rời tab, thoát toàn màn hình hoặc sao chép nội dung đều được ghi lại và gửi cho giáo viên.</li>
+      <li>Nếu bị tải lại trang hoặc mất mạng, mở lại đúng đường dẫn này để làm tiếp. Thời gian vẫn tính liên tục.</li>
+    </ul>
+  </div>
+</main>
+
+<!-- ================= LÀM BÀI ================= -->
+<div id="exam" hidden>
+  <header class="bar">
+    <div class="who"><span id="whoName"></span><small id="whoCls"></small></div>
+    <div class="timer" id="timer" role="timer" aria-label="Thời gian còn lại">40:00</div>
+    <button class="btn light sm only-narrow" id="btnSheet" type="button">Phiếu</button>
+    <button class="btn light sm" id="btnSubmit" type="button">Nộp bài</button>
+  </header>
+  <div class="stage">
+    <div class="qarea" id="qarea"></div>
+    <aside class="side" id="sheetSide" aria-label="Phiếu trả lời"></aside>
+  </div>
+  <nav class="nav" aria-label="Chuyển câu">
+    <button class="btn ghost" id="btnPrev" type="button">Câu trước</button>
+    <button class="btn ghost" id="btnFlag" type="button">Đánh dấu</button>
+    <button class="btn" id="btnNext" type="button">Câu sau</button>
+  </nav>
+</div>
+
+<!-- ================= KẾT THÚC ================= -->
+<main id="done" class="done" hidden>
+  <div class="wrap"><div class="card" id="doneCard"></div></div>
+</main>
+
+<div class="veil" id="veil"><div class="dlg" id="dlg" role="dialog" aria-modal="true"></div></div>
+<div class="veil" id="sheetVeil"><div class="dlg" role="dialog" aria-modal="true" aria-label="Phiếu trả lời"><div id="sheetSheet"></div><div class="row"><button class="btn" id="sheetClose" type="button">Đóng</button></div></div></div>
+<div class="toast" id="toast" hidden></div>
+
+<script>
+(() => {
+'use strict';
+
+/* =====================================================================
+   CẤU HÌNH – giáo viên chỉ cần sửa dòng ENDPOINT
+   ===================================================================== */
+const ENDPOINT = 'https://script.google.com/macros/s/AKfycbyS3hpMMAj5qCokm0VIwnG0ewfbB-k55by5LcQYdI-XmSc-pPudbcFU1sm7M3JdqdJg/exec';            // Dán URL ứng dụng web Google Apps Script (kết thúc bằng /exec)
+const RULES = {
+  REQUIRE_FULLSCREEN: true,     // yêu cầu toàn màn hình (chỉ áp dụng nếu thiết bị hỗ trợ)
+  AUTO_SUBMIT_AFTER: 0,         // tự nộp bài sau n lần vi phạm; 0 = chỉ ghi nhận, không tự nộp
+  WATERMARK: true,              // in mờ họ tên + lớp lên màn hình để khó chụp/chuyển bài cho người khác
+  DEFAULT_MINUTES: 40,
+};
+const EXAM = {"title":"Kiểm tra Unit 1 – Life Stories We Admire","sub":"Tiếng Anh 12 (Global Success)","total":40,"groups":[{"id":"pron","shuffle":true,"dir":"Mark the letter A, B, C, or D to indicate the word whose underlined part is pronounced differently from that of the others.","passage":null,"items":[{"id":1,"kind":"inline","opts":["\u003cu>a\u003c/u>ncient","f\u003cu>a\u003c/u>mous","b\u003cu>a\u003c/u>ttle","br\u003cu>a\u003c/u>ve"]},{"id":2,"kind":"inline","opts":["p\u003cu>oe\u003c/u>m","s\u003cu>o\u003c/u>ldier","dev\u003cu>o\u003c/u>te","b\u003cu>o\u003c/u>nd"]}]},{"id":"mc","shuffle":true,"dir":"Mark the letter A, B, C, or D to indicate the correct answer to each of the following questions.","passage":null,"items":[{"id":3,"kind":"mc","stem":"Because his biological parents could not raise him, Steve Jobs was ______ by Paul and Clara Jobs.","opts":["adopted","adapted","admired","attended"]},{"id":4,"kind":"mc","stem":"The young boy had a difficult ______ because his parents died when he was very small.","opts":["marriage","childhood","retirement","career"]},{"id":5,"kind":"mc","stem":"General Vo Nguyen Giap is admired ______ his brilliant military leadership at Dien Bien Phu.","opts":["at","with","by","for"]},{"id":6,"kind":"mc","stem":"Thomas Edison’s greatest ______ was the invention of the practical light bulb.","opts":["achievable","achieve","achievement","achiever"]},{"id":7,"kind":"mc","stem":"The two boys ______ over their shared love of football and soon became best friends.","opts":["bonded","argued","resigned","attended"]},{"id":8,"kind":"mc","stem":"The famous poet ______ peacefully in 1996 at the age of 80.","opts":["carried out","passed away","dropped out","gave up"]},{"id":9,"kind":"mc","stem":"It was her strong ______ that helped her overcome every difficulty in life.","opts":["determine","determined","determination","determinedly"]},{"id":10,"kind":"mc","stem":"Uncle Ho devoted his whole life ______ the independence and freedom of the Vietnamese people.","opts":["to","for","with","on"]},{"id":11,"kind":"mc","stem":"In 2003, Steve Jobs was ______ with a rare form of cancer.","opts":["attended","resigned","defeated","diagnosed"]},{"id":12,"kind":"mc","stem":"During Catherine II’s 34-year ______, the Russian Empire expanded greatly.","opts":["death","rule","marriage","resistance"]},{"id":13,"kind":"mc","stem":"In 1947, Vo Thi Sau bravely ______ attacks against French soldiers.","opts":["carried out","dropped out","passed away","looked after"]},{"id":14,"kind":"mc","stem":"At this time yesterday, my father ______ a documentary about national heroes.","opts":["watched","has watched","was watching","watches"]},{"id":15,"kind":"mc","stem":"When Steve Jobs was 21, he and Steve Wozniak ______ Apple Computers in Jobs’ family garage.","opts":["were starting","have started","start","started"]},{"id":16,"kind":"mc","stem":"The young surgeon ______ on a wounded soldier when a bomb ______ near the field hospital.","opts":["was operating – was exploding","was operating – exploded","operated – was exploding","operated – exploded"]},{"id":17,"kind":"mc","stem":"When the soldiers arrived at the camp, it was raining heavily and a cold wind ______ hard.","opts":["was blowing","blew","has blown","blows"]},{"id":18,"kind":"mc","stem":"Which sentence means that Dang Thuy Tram was already writing her diary when the enemy planes appeared?","opts":["She wrote her diary when the enemy planes appeared.","She was writing her diary when the enemy planes appeared.","She was writing her diary after the enemy planes appeared.","The enemy planes appeared, so she wrote her diary."]},{"id":19,"kind":"mc","stem":"Which of the following expressions does NOT show great happiness?","opts":["I’m on cloud nine.","I’m over the moon.","I’m on top of the world.","I’m under the weather."]}]},{"id":"err","shuffle":true,"dir":"Mark the letter A, B, C, or D to indicate the underlined part that needs correction.","passage":null,"items":[{"id":20,"kind":"err","html":"When the war \u003cu>started\u003c/u>\u003cb> (A)\u003c/b>, my grandfather \u003cu>was enjoying\u003c/u>\u003cb> (B)\u003c/b> a happy family life. Then he \u003cu>was leaving\u003c/u>\u003cb> (C)\u003c/b> his hometown \u003cu>to join\u003c/u>\u003cb> (D)\u003c/b> the army.","phr":["started","was enjoying","was leaving","to join"]},{"id":21,"kind":"err","html":"Steve Jobs \u003cu>continued\u003c/u>\u003cb> (A)\u003c/b> to work \u003cu>while\u003c/u>\u003cb> (B)\u003c/b> he \u003cu>was fighting\u003c/u>\u003cb> (C)\u003c/b> cancer, because he \u003cu>was wanting\u003c/u>\u003cb> (D)\u003c/b> to create new products.","phr":["continued","while","was fighting","was wanting"]}]},{"id":"exch","shuffle":false,"dir":"Mark the letter A, B, C, or D to indicate the most suitable response to complete the following exchange.","passage":null,"items":[{"id":22,"kind":"exch","lines":["Lan: “I’ve just been chosen to represent our school at the provincial English-speaking contest!”","Hoa: “______”"],"opts":["Good for you! You really deserve it.","That’s a pity. Better luck next time.","Don’t mention it.","I’m sorry to hear that."]}]},{"id":"arr","shuffle":true,"dir":"Mark the letter A, B, C, or D to indicate the best arrangement of utterances or sentences to make a meaningful exchange or text.","passage":null,"items":[{"id":23,"kind":"arr","utts":[["a","Nam: His determination. He spent 27 years in prison, but he never gave up his fight for equality."],["b","Mark: That’s amazing! No wonder he later became the President of South Africa."],["c","Nam: Yes, I’ve just finished a biography of Nelson Mandela. It was so inspiring!"],["d","Mark: Really? What impressed you most about him?"],["e","Mark: Have you read any good books lately?"]],"opts":["c – e – d – a – b","e – d – c – a – b","e – c – d – a – b","e – c – a – d – b"]},{"id":24,"kind":"arr","utts":[["a","Hoa: Of course! He led the Dien Bien Phu campaign, which ended French colonial rule in Viet Nam."],["b","Lan: Thanks a lot. That’s really helpful for my project."],["c","Lan: I’m writing about General Vo Nguyen Giap for our class project. Do you know anything about him?"],["d","Hoa: In 1954. After that victory, he became famous worldwide."],["e","Lan: Really? When did that happen?"]],"opts":["c – e – a – d – b","c – a – e – d – b","a – c – e – d – b","c – a – d – e – b"]},{"id":25,"kind":"arr","utts":[["a","She wrote a diary while she was working in a field hospital."],["b","An American soldier kept the diary for more than thirty years before returning a copy to her family."],["c","Dang Thuy Tram was a young doctor who devoted her youth to the resistance war against the US."],["d","Sadly, she was killed in the jungle when she was 27."],["e","The diary was later published as a book, which has been translated into many languages."]],"opts":["c – a – d – b – e","c – d – a – b – e","c – a – d – e – b","c – a – b – d – e"]}]},{"id":"cloze","shuffle":false,"dir":"Read the passage and mark the letter A, B, C, or D to indicate the word or phrase that best fits each blank (26–31).","passage":"cloze","items":[{"id":26,"kind":"cloze","opts":["talented","talents","talentedly","talent"]},{"id":27,"kind":"cloze","opts":["carried out","set out","dropped out","passed away"]},{"id":28,"kind":"cloze","opts":["worked","was working","has worked","works"]},{"id":29,"kind":"cloze","opts":["success","succeed","successful","successfully"]},{"id":30,"kind":"cloze","opts":["at","of","on","in"]},{"id":31,"kind":"cloze","opts":["Therefore","However","Moreover","For example"]}]},{"id":"read","shuffle":false,"dir":"Read the passage and mark the letter A, B, C, or D to indicate the correct answer to each question (32–40).","passage":"read","items":[{"id":32,"kind":"mc","stem":"According to paragraph 1, why couldn’t Marie Curie attend university in Poland?","opts":["She was too poor.","She did not pass the exam.","She was a woman.","She wanted to work in Paris."]},{"id":33,"kind":"mc","stem":"Marie Curie moved to Paris in ______.","opts":["1891","1895","1903","1911"]},{"id":34,"kind":"mc","stem":"What is the best title for the passage?","opts":["The Nobel Prize in Physics and Chemistry","Women’s Role in World War I","A Polish Girl’s Difficult Childhood","The Life and Achievements of Marie Curie"]},{"id":35,"kind":"mc","stem":"“Dedication” in paragraph 4 is closest in meaning to ______.","opts":["education","devotion","decision","imagination"]},{"id":36,"kind":"mc","stem":"“Their” in paragraph 2 refers to ______.","opts":["Marie and her sister","two Nobel Prizes","Marie and Pierre Curie","Marie’s students"]},{"id":37,"kind":"mc","stem":"Which is NOT mentioned as an achievement of Marie Curie?","opts":["She invented the first X-ray machine.","She discovered two new elements.","She won Nobel Prizes in two different sciences.","She helped surgeons find bullets in soldiers’ bodies."]},{"id":38,"kind":"mc","stem":"According to the passage, which of the following is TRUE?","opts":["Marie Curie was allowed to study at a university in Warsaw.","The Curies won the Nobel Prize in Chemistry in 1903.","Marie stopped her research after Pierre died.","Marie Curie herself drove an X-ray vehicle to the battlefield."]},{"id":39,"kind":"mc","stem":"Which best paraphrases the last sentence of the passage?","opts":["People admire Marie Curie only for her scientific success.","People now admire her character more than her science.","People admire both her science and her brave, determined, devoted character.","Few people today remember her courage and dedication."]},{"id":40,"kind":"mc","stem":"We can infer that Marie Curie ______.","opts":["came from a wealthy family that paid for her studies","was ready to face hardship and danger to serve science and others","worked alone throughout her scientific career","won her second Nobel Prize with her husband’s help"]}]}],"passages":{"cloze":{"title":"Walt Disney","html":["\u003cp>Walt Disney was born in Chicago in 1901. As a boy, he showed a great \u003cspan class=\"blank\" data-q=\"26\">\u003cb>(26)\u003c/b> ______\u003c/span> for drawing. At the age of 16, he \u003cspan class=\"blank\" data-q=\"27\">\u003cb>(27)\u003c/b> ______\u003c/span> of school to join the army. After the war, he moved to Hollywood to start his career again.\u003c/p>","\u003cp>In 1928, Disney created Mickey Mouse, a cartoon character who quickly became famous around the world. In the 1930s, Disney \u003cspan class=\"blank\" data-q=\"28\">\u003cb>(28)\u003c/b> ______\u003c/span> on \u003ci>Snow White and the Seven Dwarfs\u003c/i> when many people told him that the film would fail. But it turned out to be a huge \u003cspan class=\"blank\" data-q=\"29\">\u003cb>(29)\u003c/b> ______\u003c/span> and earned more than 400 million dollars. Throughout his career, Disney won 26 Oscars, a record \u003cspan class=\"blank\" data-q=\"30\">\u003cb>(30)\u003c/b> ______\u003c/span> history. He also built Disneyland, a world-famous theme park.\u003c/p>","\u003cp>Disney died of cancer in 1966. \u003cspan class=\"blank\" data-q=\"31\">\u003cb>(31)\u003c/b> ______\u003c/span>, the studios he founded still make films that inspire people of all ages to follow their dreams.\u003c/p>"]},"read":{"title":"","html":["\u003cp>Marie Curie was born in Warsaw, Poland, in 1867. She was a brilliant student, but she was not allowed to attend university in her own country because she was a woman. Determined to continue her studies, she worked for several years to save money. In 1891, she moved to Paris, where she studied physics and mathematics. Life there was hard: she lived in a tiny room and often had little food, but she never gave up.\u003c/p>","\u003cp>In 1895, she married Pierre Curie, a French scientist, and they began to work together. While they were studying uranium in a simple laboratory, they discovered two new elements, polonium and radium. In 1903, they shared the Nobel Prize in Physics with another scientist. Three years later, Pierre died in a road accident, but Marie continued their research alone. In 1911, she won a second Nobel Prize, this time in Chemistry, and became the first person in history to win Nobel Prizes in two different sciences.\u003c/p>","\u003cp>During World War I, Marie dedicated herself to helping wounded soldiers. She developed mobile X-ray machines, which helped surgeons find bullets inside soldiers’ bodies quickly. She even drove one of these vehicles to the battlefield herself.\u003c/p>","\u003cp>Marie Curie died in 1934 after many years of working with radiation. Today, she is admired not only for her scientific achievements but also for her courage, determination and dedication to helping others.\u003c/p>"]}}};
+
+/* ===================================================================== */
+const DEMO = !ENDPOINT || /[?&]demo=1\b/.test(location.search);
+const STORE_KEY = 'cbt_unit1_v1';
+const $ = (s, el = document) => el.querySelector(s);
+const $$ = (s, el = document) => Array.from(el.querySelectorAll(s));
+const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+const fmt = (sec) => { sec = Math.max(0, sec | 0); const m = Math.floor(sec / 60), s = sec % 60; return String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0'); };
+const store = {
+  get() { try { return JSON.parse(localStorage.getItem(STORE_KEY)); } catch (e) { return null; } },
+  set(v) { try { localStorage.setItem(STORE_KEY, JSON.stringify(v)); } catch (e) { /* bộ nhớ đầy hoặc bị chặn */ } },
+  del() { try { localStorage.removeItem(STORE_KEY); } catch (e) { /* bỏ qua */ } },
+};
+
+/* ---------- dữ liệu đề ---------- */
+const ITEM = {}, GROUP = {};
+EXAM.groups.forEach((g) => { GROUP[g.id] = g; g.items.forEach((it) => { ITEM[it.id] = it; it.gid = g.id; }); });
+
+function mulberry32(a) { return function () { a |= 0; a = (a + 0x6D2B79F5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+function shuffle(arr, rnd) { const a = arr.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(rnd() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+
+// Mỗi em một thứ tự riêng (theo seed do máy chủ cấp). Phần đọc hiểu và cloze giữ nguyên thứ tự câu, chỉ đảo đáp án.
+function buildOrder(seed) {
+  const rnd = mulberry32(seed >>> 0);
+  const list = [], perm = {};
+  EXAM.groups.forEach((g) => {
+    const ids = g.items.map((i) => i.id);
+    (g.shuffle ? shuffle(ids, rnd) : ids).forEach((id) => list.push({ gid: g.id, id }));
+    g.items.forEach((it) => { if (it.opts) perm[it.id] = shuffle([0, 1, 2, 3], rnd); });
+  });
+  return { list, perm };
+}
+const optOrder = (it) => (it.kind === 'err' ? [0, 1, 2, 3] : S.perm[it.id]);
+
+/* ---------- trạng thái ---------- */
+const newTel = () => ({ tabHidden: 0, hiddenMs: 0, blur: 0, fsExit: 0, fsEntered: false, copy: 0, paste: 0, cut: 0, ctx: 0, keys: 0, print: 0, sheetAnswers: 0, changes: 0, qms: {}, log: [] });
+const S = {
+  phase: 'login', name: '', cls: '', code: '', attemptId: '', seed: 0, startedAt: 0, offset: 0, durationSec: RULES.DEFAULT_MINUTES * 60,
+  list: [], perm: {}, answers: {}, flags: {}, idx: 0, tel: newTel(), fsActive: false, hiddenAt: 0, qStart: 0, warns: 0,
+  timer: 0, submitting: false, guards: false, config: null, passageCollapsed: false, retryTimer: 0,
+};
+const logEv = (code, extra) => { const t = Math.round((Date.now() + S.offset - S.startedAt) / 1000); S.tel.log.push(extra === undefined ? t + ':' + code : t + ':' + code + ':' + extra); if (S.tel.log.length > 80) S.tel.log.shift(); };
+
+/* ---------- mạng ---------- */
+function netError(kind, detail) { const e = new Error(kind); e.kind = kind; e.detail = detail || ''; return e; }
+const plain = (s) => String(s).replace(/<script[\s\S]*?<\/script>/gi, ' ').replace(/<style[\s\S]*?<\/style>/gi, ' ').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 160);
+async function fetchJson(url, init, ms) {
+  const ctl = new AbortController();
+  const tm = setTimeout(() => ctl.abort(), ms);
+  let txt;
+  try { const res = await fetch(url, Object.assign({ signal: ctl.signal }, init)); txt = await res.text(); }
+  catch (e) { throw netError(e && e.name === 'AbortError' ? 'timeout' : 'network', String((e && e.message) || e)); }
+  finally { clearTimeout(tm); }
+  try { return JSON.parse(txt); } catch (e) { throw netError('not-json', plain(txt)); }
+}
+function explain(e) {
+  if (!e || !e.kind) return 'Có lỗi không xác định. Em tải lại trang rồi thử lại.';
+  const d = e.detail || '';
+  if (e.kind === 'not-json') {
+    if (/accounts\.google|Sign in|ServiceLogin|Đăng nhập/i.test(d)) return 'Máy chủ đang yêu cầu đăng nhập Google. Trong Apps Script cần triển khai với "Người có quyền truy cập: Bất kỳ ai".';
+    if (/Authorization is required|Cần có quyền/i.test(d)) return 'Script chưa được cấp quyền. Mở Apps Script, chạy hàm setup, cấp quyền rồi triển khai lại.';
+    if (/Script function not found/i.test(d)) return 'Code.gs chưa dán đúng (thiếu hàm doGet/doPost).';
+    return 'Máy chủ trả về một trang web thay vì dữ liệu. Kiểm tra URL ứng dụng web (phải kết thúc bằng /exec) và cách triển khai.' + (d ? ' [' + d.slice(0, 90) + ']' : '');
+  }
+  if (e.kind === 'timeout') return 'Máy chủ phản hồi quá lâu. Em kiểm tra mạng rồi thử lại.';
+  if (e.kind === 'busy') return 'Máy chủ đang bận vì nhiều em cùng vào. Em chờ vài giây rồi bấm lại.';
+  return 'Không gọi được máy chủ. Kiểm tra mạng, URL /exec và cách triển khai (Bất kỳ ai).';
+}
+async function api(payload, tries) {
+  let last;
+  for (let i = 0; i < (tries || 3); i++) {
+    try {
+      const data = await fetchJson(ENDPOINT, { method: 'POST', body: JSON.stringify(payload) }, 20000);
+      if (data && data.error === 'busy') { last = netError('busy'); await sleep(1500 + Math.random() * 4000); continue; }
+      return data;
+    } catch (e) {
+      last = e;
+      if (e.kind === 'not-json') break;                 // máy chủ trả về trang web: thử lại cũng vô ích
+      await sleep(1200 + i * 1500 + Math.random() * 1000);
+    }
+  }
+  throw last || netError('network');
+}
+const getConfig = () => fetchJson(ENDPOINT + (ENDPOINT.includes('?') ? '&' : '?') + 'action=config&t=' + Date.now(), {}, 10000);
+
+/* ---------- hộp thoại ---------- */
+function openDialog({ title, html, actions }) {
+  const dlg = $('#dlg');
+  dlg.innerHTML = `<h2>${title}</h2>${html}<div class="row"></div>`;
+  const row = $('.row', dlg);
+  (actions || []).forEach((a) => {
+    const b = document.createElement('button');
+    b.type = 'button'; b.className = 'btn' + (a.primary ? '' : ' ghost'); b.textContent = a.label;
+    b.addEventListener('click', a.fn); row.appendChild(b);
+  });
+  $('#veil').classList.add('show');
+  const first = $('.btn', row); if (first) first.focus();
+}
+const closeDialog = () => $('#veil').classList.remove('show');
+let toastTm = 0;
+function toast(msg) { const t = $('#toast'); t.textContent = msg; t.hidden = false; clearTimeout(toastTm); toastTm = setTimeout(() => { t.hidden = true; }, 3200); }
+function show(id) { ['login', 'exam', 'done'].forEach((x) => { $('#' + x).hidden = x !== id; }); }
+
+/* =====================================================================
+   ĐĂNG NHẬP
+   ===================================================================== */
+function loginError(msg) { $('#lgErr').textContent = msg || ''; }
+
+function setSrv(msg, bad, retry) {
+  const el = $('#srv'); el.className = 'srv' + (bad ? ' bad' : ''); el.textContent = msg;
+  if (retry) { const b = document.createElement('button'); b.type = 'button'; b.className = 'linkbtn'; b.textContent = 'Thử lại'; b.addEventListener('click', loadConfig); el.appendChild(document.createTextNode(' ')); el.appendChild(b); }
+}
+async function initLogin() {
+  show('login');
+  document.title = EXAM.title;
+  const saved = store.get();
+  if (saved && saved.attemptId && saved.name) {
+    $('#rsName').textContent = saved.name + ' (' + saved.cls + ')';
+    $('#resume').hidden = false;
+  }
+  if (DEMO) {
+    $('#banner').innerHTML = `<div class="notice info"><b>Chế độ xem thử.</b> Bài làm sẽ không được gửi đi và không có điểm.${ENDPOINT ? '' : ' (Chưa dán ENDPOINT vào file.)'}</div>`;
+    setSrv('Chế độ xem thử, chưa dùng máy chủ.', false);
+    return;
+  }
+  await loadConfig();
+}
+async function loadConfig() {
+  setSrv('Đang kết nối máy chủ...', false);
+  try {
+    const c = await getConfig();
+    if (!c || !c.ok) { setSrv('Máy chủ báo lỗi: ' + ((c && c.message) || 'không rõ'), true, true); return; }
+    S.config = c; applyConfig(c);
+    let msg = 'Kết nối máy chủ: OK. ' + (c.open === false ? 'Bài đang ĐÓNG.' : 'Bài đang mở.');
+    if (!c.version || c.version < 2) msg += ' (Máy chủ đang chạy bản cũ, nên triển khai lại phiên bản mới của Code.gs.)';
+    setSrv(msg, c.open === false);
+  } catch (e) { setSrv('Kết nối máy chủ lỗi: ' + explain(e), true, true); }
+}
+function applyConfig(c) {
+  if (c.title) { $('#lgTitle').textContent = c.title; document.title = c.title; }
+  if (c.durationMin) S.durationSec = c.durationMin * 60;
+  $('#codeField').hidden = !c.needCode;
+  if (c.classes && c.classes.length) {
+    const sel = $('#fCls');
+    sel.innerHTML = '<option value="">Chọn lớp</option>' + c.classes.map((x) => `<option>${esc(x)}</option>`).join('');
+    sel.hidden = false; $('#fClsText').hidden = true;
+  }
+  $('#banner').innerHTML = c.open === false ? '<div class="notice"><b>Bài kiểm tra đang đóng.</b> Giáo viên cần bật OPEN trong sheet CauHinh (hoặc chọn menu Mở bài) rồi em tải lại trang.</div>' : '';
+}
+const readClass = () => (($('#fCls').hidden ? $('#fClsText').value : $('#fCls').value) || '').trim();
+
+async function onStart(ev) {
+  ev.preventDefault();
+  loginError('');
+  const name = $('#fName').value.replace(/\s+/g, ' ').trim();
+  const cls = readClass().toUpperCase().replace(/\s+/g, '');
+  const code = $('#fCode').value.trim();
+  if (name.split(' ').length < 2 || name.length < 3) { loginError('Em nhập đầy đủ họ và tên nhé.'); $('#fName').focus(); return; }
+  if (!cls) { loginError('Em chọn lớp nhé.'); return; }
+  const btn = $('#btnStart'); btn.disabled = true; btn.textContent = 'Đang kiểm tra...';
+  try {
+    let r;
+    if (DEMO) r = { ok: true, attemptId: 'demo-' + Date.now(), seed: (Math.random() * 2147483646 | 0) + 1, startedAt: Date.now(), serverNow: Date.now(), durationSec: S.durationSec };
+    else r = await api({ action: 'start', name, cls, code, info: { ua: navigator.userAgent.slice(0, 180), scr: screen.width + 'x' + screen.height, tz: (Intl.DateTimeFormat().resolvedOptions().timeZone || '') } });
+    if (!r.ok) { loginError(r.message || 'Chưa vào được bài. Em thử lại nhé.'); return; }
+    await beginExam(r, { name, cls, code }, null);
+  } catch (e) {
+    if (e && e.kind) loginError(explain(e));
+    else { console.error(e); loginError('Trang gặp lỗi khi mở bài: ' + ((e && e.message) || e) + '. Em chụp màn hình gửi giáo viên.'); }
+  } finally { btn.disabled = false; btn.textContent = 'Bắt đầu làm bài'; }
+}
+
+async function onResume() {
+  const saved = store.get(); if (!saved) return;
+  const btn = $('#rsGo'); btn.disabled = true;
+  try {
+    let r;
+    if (DEMO) r = { ok: true, attemptId: saved.attemptId, seed: saved.seed, startedAt: saved.startedAt, serverNow: Date.now(), durationSec: saved.durationSec, resumed: true };
+    else r = await api({ action: 'start', name: saved.name, cls: saved.cls, code: saved.code || '', info: { ua: navigator.userAgent.slice(0, 180), scr: screen.width + 'x' + screen.height } });
+    if (!r.ok) { loginError(r.message || 'Không tiếp tục được.'); if (r.error === 'already') { store.del(); $('#resume').hidden = true; } return; }
+    await beginExam(r, { name: saved.name, cls: saved.cls, code: saved.code || '' }, r.attemptId === saved.attemptId ? saved : null);
+  } catch (e) { loginError(e && e.kind ? explain(e) : 'Trang gặp lỗi: ' + ((e && e.message) || e)); }
+  finally { btn.disabled = false; }
+}
+
+/* =====================================================================
+   LÀM BÀI
+   ===================================================================== */
+async function beginExam(r, who, restored) {
+  Object.assign(S, { phase: 'exam', name: who.name, cls: who.cls, code: who.code, attemptId: r.attemptId, seed: r.seed, startedAt: r.startedAt,
+    offset: r.serverNow - Date.now(), durationSec: r.durationSec || S.durationSec, submitting: false, warns: 0 });
+  const o = buildOrder(S.seed); S.list = o.list; S.perm = o.perm;
+  S.answers = restored && restored.answers ? restored.answers : {};
+  S.flags = restored && restored.flags ? restored.flags : {};
+  S.idx = restored && Number.isInteger(restored.idx) ? Math.min(restored.idx, S.list.length - 1) : 0;
+  S.tel = Object.assign(newTel(), restored && restored.tel ? restored.tel : {});
+  if (r.resumed) logEv('resume');
+  show('exam');
+  $('#whoName').innerHTML = esc(S.name) + (DEMO ? '<span class="tag">Xem thử</span>' : '');
+  $('#whoCls').textContent = 'Lớp ' + S.cls;
+  buildWatermark();
+  installGuards();
+  renderQuestion(); renderSheet(); tick();
+  clearInterval(S.timer); S.timer = setInterval(tick, 500);
+  S.qStart = Date.now();
+  save();
+  await enterFullscreen();
+}
+
+const remaining = () => Math.round((S.startedAt + S.durationSec * 1000 - (Date.now() + S.offset)) / 1000);
+function tick() {
+  if (S.phase !== 'exam') return;
+  const r = remaining();
+  const el = $('#timer'); el.textContent = fmt(r); el.classList.toggle('low', r <= 300);
+  if (r === 300 || r === 60) toast(r === 300 ? 'Còn 5 phút.' : 'Còn 1 phút.');
+  if (r <= 0 && !S.submitting) finish(true, 'Hết giờ. Bài của em đang được nộp tự động.');
+}
+
+/* ---------- vẽ câu hỏi ---------- */
+function renderQuestion() {
+  const cur = S.list[S.idx], it = ITEM[cur.id], g = GROUP[cur.gid], num = S.idx + 1;
+  const passage = g.passage ? EXAM.passages[g.passage] : null;
+  let html = '';
+  if (passage) {
+    html += `<section class="paper passage-box"><div class="passage${S.passageCollapsed ? ' collapsed' : ''}"><div class="ph"><span>Bài đọc</span><button class="linkbtn" id="btnPassage" type="button">${S.passageCollapsed ? 'Hiện bài đọc' : 'Thu gọn bài đọc'}</button></div><div class="pbody">${passage.title ? `<h2>${esc(passage.title)}</h2>` : ''}${passage.html.join('')}</div></div></section>`;
+  }
+  let body = '';
+  if (it.kind === 'mc') body += `<p class="q-stem">${it.stem}</p>`;
+  if (it.kind === 'err') body += `<p class="q-stem">${it.html}</p>`;
+  if (it.kind === 'exch') body += `<div class="exch">${it.lines.map((l) => `<p>${l}</p>`).join('')}</div>`;
+  if (it.kind === 'arr') body += `<div class="utts">${it.utts.map(([l, t]) => `<p class="utt"><b>${l}.</b>${t}</p>`).join('')}</div>`;
+  if (it.kind === 'cloze') body += `<p class="q-stem plain">Chọn từ hoặc cụm từ phù hợp cho ô trống (${it.id}).</p>`;
+  const opts = optOrder(it).map((canon, j) => {
+    const on = S.answers[it.id] === canon;
+    const txt = it.kind === 'err' ? esc(it.phr[canon]) : it.opts[canon];
+    return `<button class="opt${on ? ' on' : ''}" type="button" role="radio" aria-checked="${on}" data-canon="${canon}"><span class="chip">${'ABCD'[j]}</span><span class="txt">${txt}</span></button>`;
+  }).join('');
+  html += `<section class="paper qbox" data-id="${it.id}" data-num="${num}"><div class="q-head"><span class="q-num">Câu ${num}</span><span class="q-mark">${S.flags[it.id] ? 'Đã đánh dấu xem lại' : ''}</span></div><p class="q-dir">${esc(g.dir)}</p>${body}<div class="opts" role="radiogroup" aria-label="Đáp án câu ${num}">${opts}</div><div class="q-tools"><button class="linkbtn" id="btnClear" type="button">Bỏ chọn câu này</button></div></section>`;
+  const area = $('#qarea');
+  area.className = 'qarea' + (passage ? ' has-passage' : '');
+  area.innerHTML = html;
+  paintBlanks(); scrollBlank();
+  $('#btnFlag').classList.toggle('flagged', !!S.flags[it.id]);
+  $('#btnFlag').textContent = S.flags[it.id] ? 'Bỏ đánh dấu' : 'Đánh dấu';
+  $('#btnPrev').disabled = S.idx === 0;
+  $('#btnNext').textContent = S.idx === S.list.length - 1 ? 'Xem lại và nộp' : 'Câu sau';
+  window.scrollTo({ top: 0 });
+}
+function paintBlanks() {
+  const cur = S.list[S.idx];
+  $$('.blank').forEach((el) => {
+    const q = +el.dataset.q, it = ITEM[q], a = S.answers[q];
+    el.classList.toggle('active', cur.id === q);
+    el.classList.toggle('done', a !== undefined && a !== null);
+    el.innerHTML = `<b>(${q})</b> ` + (a !== undefined && a !== null ? it.opts[a] : '______');
+  });
+}
+
+function scrollBlank() {
+  const pb = $('.pbody'), a = $('.blank.active');
+  if (pb && a && pb.scrollHeight > pb.clientHeight) pb.scrollTop = Math.max(0, a.offsetTop - pb.clientHeight / 3);
+}
+
+function sheetHTML() {
+  const rows = S.list.map((x, i) => {
+    const it = ITEM[x.id], sel = S.answers[x.id];
+    const bubs = optOrder(it).map((canon, j) => `<button class="bub${sel === canon ? ' on' : ''}" type="button" data-i="${i}" data-canon="${canon}" aria-label="Câu ${i + 1}, phương án ${'ABCD'[j]}" aria-pressed="${sel === canon}">${'ABCD'[j]}</button>`).join('');
+    return `<div class="rw${i === S.idx ? ' cur' : ''}${S.flags[x.id] ? ' flag' : ''}"><button class="n" type="button" data-go="${i}" aria-label="Đến câu ${i + 1}">${i + 1}</button>${bubs}</div>`;
+  }).join('');
+  const done = S.list.filter((x) => S.answers[x.id] !== undefined && S.answers[x.id] !== null).length;
+  return `<div class="sheet"><h2>Phiếu trả lời</h2><p class="cnt">Đã trả lời ${done}/${S.list.length} câu</p><div class="rows">${rows}</div><p class="legend">Bấm số để đến câu đó. Bấm ô tròn để chọn đáp án. Chấm đỏ là câu đã đánh dấu xem lại.</p></div>`;
+}
+function renderSheet() { const h = sheetHTML(); $('#sheetSide').innerHTML = h; $('#sheetSheet').innerHTML = h; }
+
+/* ---------- thao tác ---------- */
+function setAnswer(id, canon, via) {
+  const prev = S.answers[id];
+  if (prev === canon) return;
+  if (prev !== undefined && prev !== null) S.tel.changes++;
+  S.answers[id] = canon;
+  if (via === 'sheet') S.tel.sheetAnswers++;
+  afterChange();
+}
+function clearAnswer(id) { if (S.answers[id] === undefined) return; delete S.answers[id]; afterChange(); }
+function afterChange() {
+  const cur = S.list[S.idx], it = ITEM[cur.id], a = S.answers[cur.id];
+  $$('#qarea .opt').forEach((b) => { const on = a !== undefined && +b.dataset.canon === a; b.classList.toggle('on', on); b.setAttribute('aria-checked', on); });
+  paintBlanks(); renderSheet(); save();
+}
+function flushQ() {
+  if (!S.qStart) return;
+  const cur = S.list[S.idx]; if (!cur) return;
+  S.tel.qms[cur.id] = (S.tel.qms[cur.id] || 0) + Math.min(Math.max(0, Date.now() - S.qStart), 600000);
+  S.qStart = 0;
+}
+function go(i) {
+  i = Math.max(0, Math.min(S.list.length - 1, i));
+  flushQ(); S.idx = i; renderQuestion(); renderSheet(); S.qStart = Date.now(); save();
+}
+function toggleFlag() { const id = S.list[S.idx].id; if (S.flags[id]) delete S.flags[id]; else S.flags[id] = true; renderQuestion(); renderSheet(); save(); }
+
+/* ---------- lưu tạm trên máy ---------- */
+function save() {
+  if (S.phase !== 'exam') return;
+  store.set({ v: 1, attemptId: S.attemptId, name: S.name, cls: S.cls, code: S.code, seed: S.seed, startedAt: S.startedAt, durationSec: S.durationSec,
+    idx: S.idx, answers: S.answers, flags: S.flags, tel: S.tel, savedAt: Date.now() });
+}
+
+/* ---------- toàn màn hình, rời tab, sao chép ---------- */
+const fsOn = () => !!(document.fullscreenElement || document.webkitFullscreenElement);
+async function enterFullscreen() {
+  const el = document.documentElement;
+  if (!RULES.REQUIRE_FULLSCREEN || DEMO || !(el.requestFullscreen || el.webkitRequestFullscreen)) return;
+  try { await (el.requestFullscreen ? el.requestFullscreen() : el.webkitRequestFullscreen()); S.fsActive = true; S.tel.fsEntered = true; }
+  catch (e) { S.fsActive = false; }
+}
+function onFsChange() {
+  const on = fsOn();
+  if (S.phase === 'exam' && S.fsActive && !on) { S.fsActive = false; S.tel.fsExit++; logEv('fsexit'); violation('Em vừa thoát chế độ toàn màn hình.'); }
+  else if (on) S.fsActive = true;
+}
+function violation(msg) {
+  if (S.phase !== 'exam' || S.submitting) return;
+  S.warns++; logEv('warn'); save();
+  if (RULES.AUTO_SUBMIT_AFTER > 0 && S.warns >= RULES.AUTO_SUBMIT_AFTER) { finish(true, 'Bài được nộp tự động vì vi phạm nhiều lần.'); return; }
+  openDialog({ title: 'Cảnh báo', html: `<p>${esc(msg)}</p><p>Việc này đã được ghi lại và gửi cho giáo viên (lần ${S.warns}).</p>`,
+    actions: [{ label: 'Quay lại làm bài', primary: true, fn: () => { closeDialog(); enterFullscreen(); } }] });
+}
+function onVis() {
+  if (S.phase !== 'exam') return;
+  const now = Date.now();
+  if (document.hidden) { S.hiddenAt = now; flushQ(); logEv('hidden'); save(); }
+  else if (S.hiddenAt) {
+    const d = now - S.hiddenAt; S.hiddenAt = 0;
+    S.tel.tabHidden++; S.tel.hiddenMs += d; logEv('visible', Math.round(d / 1000)); S.qStart = now; save(); tick();
+    if (d > 1500) violation('Em vừa rời khỏi màn hình làm bài.');
+  }
+}
+function onKey(e) {
+  if (S.phase !== 'exam') return;
+  const k = e.key, mod = e.ctrlKey || e.metaKey;
+  const dialogOpen = $('#veil').classList.contains('show') || $('#sheetVeil').classList.contains('show');
+  if (k === 'PrintScreen' || k === 'F12' || (mod && ['c', 'x', 'v', 'a', 'p', 's', 'u'].includes(k.toLowerCase())) || (mod && e.shiftKey && ['i', 'j', 'c'].includes(k.toLowerCase()))) {
+    e.preventDefault(); S.tel.keys++; logEv('key'); return;
+  }
+  if (mod || e.altKey || dialogOpen) return;
+  const cur = S.list[S.idx], it = ITEM[cur.id];
+  const pick = { '1': 0, '2': 1, '3': 2, '4': 3, a: 0, b: 1, c: 2, d: 3 }[k.toLowerCase()];
+  if (pick !== undefined && k.length === 1) { setAnswer(it.id, optOrder(it)[pick], 'q'); return; }
+  if (k === 'ArrowRight') go(S.idx + 1);
+  else if (k === 'ArrowLeft') go(S.idx - 1);
+  else if (k.toLowerCase() === 'f') toggleFlag();
+}
+function installGuards() {
+  if (S.guards) return; S.guards = true;
+  document.addEventListener('visibilitychange', onVis);
+  window.addEventListener('blur', () => { if (S.phase === 'exam') S.tel.blur++; });
+  ['copy', 'cut', 'paste'].forEach((t) => document.addEventListener(t, (e) => { if (S.phase === 'exam') { e.preventDefault(); S.tel[t]++; logEv(t); save(); } }, true));
+  document.addEventListener('contextmenu', (e) => { if (S.phase === 'exam') { e.preventDefault(); S.tel.ctx++; } });
+  document.addEventListener('keydown', onKey, true);
+  document.addEventListener('fullscreenchange', onFsChange);
+  document.addEventListener('webkitfullscreenchange', onFsChange);
+  window.addEventListener('beforeprint', () => { if (S.phase === 'exam') { S.tel.print++; logEv('print'); } });
+  window.addEventListener('beforeunload', (e) => { if (S.phase === 'exam' && !S.submitting) { save(); e.preventDefault(); e.returnValue = ''; } });
+  window.addEventListener('pagehide', save);
+}
+function buildWatermark() {
+  $$('.wm').forEach((n) => n.remove());
+  if (!RULES.WATERMARK) return;
+  const w = document.createElement('div'); w.className = 'wm'; w.setAttribute('aria-hidden', 'true');
+  w.innerHTML = Array(110).fill(`<span>${esc(S.name)} - ${esc(S.cls)}</span>`).join('');
+  document.body.appendChild(w);
+}
+
+/* ---------- nộp bài ---------- */
+function askSubmit() {
+  const un = [], fl = [];
+  S.list.forEach((x, i) => { if (S.answers[x.id] === undefined || S.answers[x.id] === null) un.push(i + 1); if (S.flags[x.id]) fl.push(i + 1); });
+  let html = un.length ? `<p>Em còn <b>${un.length}</b> câu chưa trả lời: ${un.join(', ')}.</p>` : '<p>Em đã trả lời hết 40 câu.</p>';
+  if (fl.length) html += `<p>Câu đã đánh dấu xem lại: ${fl.join(', ')}.</p>`;
+  html += '<p>Sau khi nộp, em không sửa được bài.</p>';
+  openDialog({ title: 'Nộp bài?', html, actions: [
+    { label: 'Làm tiếp', fn: closeDialog },
+    { label: 'Nộp bài', primary: true, fn: () => { closeDialog(); finish(false); } },
+  ] });
+}
+function payload() {
+  const t = S.tel, qsec = {};
+  Object.keys(t.qms).forEach((k) => { qsec[k] = Math.round(t.qms[k] / 1000); });
+  return { action: 'submit', attemptId: S.attemptId, answers: S.answers, clientElapsedSec: Math.round((Date.now() + S.offset - S.startedAt) / 1000),
+    tel: { tabHidden: t.tabHidden, hiddenSec: Math.round(t.hiddenMs / 1000), blur: t.blur, fsExit: t.fsExit, fsEntered: t.fsEntered, copy: t.copy, paste: t.paste, cut: t.cut,
+      ctx: t.ctx, keys: t.keys, print: t.print, sheetAnswers: t.sheetAnswers, changes: t.changes, qsec, log: t.log.slice(-40) } };
+}
+async function finish(auto, note) {
+  if (S.submitting) return;
+  S.submitting = true; flushQ(); save(); closeDialog(); $('#sheetVeil').classList.remove('show');
+  openDialog({ title: 'Đang nộp bài', html: `<p>${esc(note || 'Em chờ vài giây nhé, đừng đóng trang.')}</p>`, actions: [] });
+  if (auto) await sleep(Math.random() * 6000); // rải đều để nhiều em hết giờ cùng lúc không làm nghẽn máy chủ
+  await sendSubmit();
+}
+async function sendSubmit() {
+  try {
+    if (DEMO) { showDone({ ok: true, demo: true }); return; }
+    const r = await api(payload(), 5);
+    if (r && r.ok) { store.del(); showDone(r); return; }
+    submitFailed((r && r.message) || 'Máy chủ chưa nhận bài.');
+  } catch (e) { submitFailed(e && e.kind ? explain(e) : 'Chưa gửi được bài.'); }
+}
+function submitFailed(msg) {
+  clearTimeout(S.retryTimer);
+  openDialog({ title: 'Chưa gửi được bài', html: `<p>${esc(msg)} Bài làm của em vẫn được giữ trên máy này. Em kiểm tra mạng rồi bấm Thử lại, đừng đóng trang.</p>`,
+    actions: [{ label: 'Thử lại', primary: true, fn: () => { openDialog({ title: 'Đang nộp bài', html: '<p>Em chờ vài giây nhé.</p>', actions: [] }); sendSubmit(); } }] });
+  S.retryTimer = setTimeout(() => { if (S.phase === 'exam') sendSubmit(); }, 15000);
+}
+function showDone(r) {
+  clearTimeout(S.retryTimer); clearInterval(S.timer); closeDialog();
+  S.phase = 'done'; $$('.wm').forEach((n) => n.remove());
+  if (fsOn()) { try { (document.exitFullscreen || document.webkitExitFullscreen).call(document); } catch (e) { /* bỏ qua */ } }
+  let inner = `<h1>Đã nộp bài</h1><p>${esc(S.name)} – lớp ${esc(S.cls)}</p>`;
+  if (r.demo) inner += '<p>Đây là chế độ xem thử: bài không được gửi và chưa có điểm.</p>';
+  else if (r.showScore && r.score !== undefined) inner += `<p class="score">${String(r.score).replace('.', ',')}<small> / 10</small></p><p>${r.correct}/${r.total} câu đúng. Đáp án đúng không được hiển thị.</p>`;
+  else inner += '<p>Giáo viên sẽ thông báo điểm sau.</p>';
+  if (r.ref) inner += `<p class="ref">Mã bài: ${esc(r.ref)}. Em có thể đóng trang.</p>`;
+  $('#doneCard').innerHTML = inner;
+  show('done');
+}
+
+/* =====================================================================
+   GẮN SỰ KIỆN
+   ===================================================================== */
+$('#form').addEventListener('submit', onStart);
+$('#rsGo').addEventListener('click', onResume);
+$('#rsDrop').addEventListener('click', () => { store.del(); $('#resume').hidden = true; });
+$('#btnSubmit').addEventListener('click', askSubmit);
+$('#btnPrev').addEventListener('click', () => go(S.idx - 1));
+$('#btnNext').addEventListener('click', () => { if (S.idx === S.list.length - 1) askSubmit(); else go(S.idx + 1); });
+$('#btnFlag').addEventListener('click', toggleFlag);
+$('#btnSheet').addEventListener('click', () => $('#sheetVeil').classList.add('show'));
+$('#sheetClose').addEventListener('click', () => $('#sheetVeil').classList.remove('show'));
+$('#qarea').addEventListener('click', (e) => {
+  const opt = e.target.closest('.opt');
+  if (opt) { setAnswer(S.list[S.idx].id, +opt.dataset.canon, 'q'); return; }
+  if (e.target.closest('#btnClear')) { clearAnswer(S.list[S.idx].id); return; }
+  if (e.target.closest('#btnPassage')) { S.passageCollapsed = !S.passageCollapsed; renderQuestion(); }
+});
+function sheetClick(e) {
+  const b = e.target.closest('.bub'), n = e.target.closest('.n');
+  if (b) { const i = +b.dataset.i; setAnswer(S.list[i].id, +b.dataset.canon, 'sheet'); return; }
+  if (n) { $('#sheetVeil').classList.remove('show'); go(+n.dataset.go); }
+}
+$('#sheetSide').addEventListener('click', sheetClick);
+$('#sheetSheet').addEventListener('click', sheetClick);
+
+function crash(msg) {
+  if (!msg || /^Script error/i.test(msg)) return;
+  let b = $('#crash');
+  if (!b) { b = document.createElement('div'); b.id = 'crash'; b.setAttribute('role', 'alert'); document.body.appendChild(b); }
+  b.textContent = 'Trang gặp lỗi: ' + msg + ' (chụp màn hình gửi giáo viên)';
+}
+window.addEventListener('error', (e) => crash(e.message));
+window.addEventListener('unhandledrejection', (e) => crash(e.reason && e.reason.message ? e.reason.message : String(e.reason)));
+
+initLogin();
+})();
+</script>
+</body>
+</html>
