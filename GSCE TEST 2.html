@@ -1,0 +1,347 @@
+<title>Thi thử Tiếng Anh 12 Đề 2</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+<style>
+/* Layout: sticky exam bar; reading passage beside its questions; question palette in a side rail. */
+:root{
+  --bg:#eef1f6; --surface:#ffffff; --surface2:#f5f7fb; --ink:#14202e; --muted:#5a6778; --line:#d7dde8;
+  --accent:#1b57c9; --accent-ink:#ffffff; --accent-soft:#dfe9fb;
+  --ok:#17744a; --ok-soft:#dcf3e6; --bad:#b32b2b; --bad-soft:#fbe1e1; --warn:#a86400; --warn-soft:#fdecc8;
+  --ui:'Be Vietnam Pro',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --read:'Source Serif 4','Times New Roman',Georgia,serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0f151e; --surface:#171f2b; --surface2:#1d2634; --ink:#e7ecf4; --muted:#9aa7ba; --line:#2d394b;
+  --accent:#7ba5ff; --accent-ink:#0b1220; --accent-soft:#1d2d4d;
+  --ok:#59d08f; --ok-soft:#14352a; --bad:#ff8a8a; --bad-soft:#3a1c1f; --warn:#f2b552; --warn-soft:#3a2d12; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f151e; --surface:#171f2b; --surface2:#1d2634; --ink:#e7ecf4; --muted:#9aa7ba; --line:#2d394b;
+  --accent:#7ba5ff; --accent-ink:#0b1220; --accent-soft:#1d2d4d;
+  --ok:#59d08f; --ok-soft:#14352a; --bad:#ff8a8a; --bad-soft:#3a1c1f; --warn:#f2b552; --warn-soft:#3a2d12; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--ui);font-size:15px;line-height:1.55;margin:0}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,input:focus-visible,summary:focus-visible,label:focus-within{outline:3px solid var(--accent);outline-offset:2px}
+.wrap{max-width:1240px;margin:0 auto;padding-inline:max(16px,env(safe-area-inset-left,0px)) max(16px,env(safe-area-inset-right,0px));padding-block:16px 40px}
+.btn{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:9px 16px;font-weight:600}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn:hover{filter:brightness(.97)}
+.btn.primary:hover{filter:brightness(1.08)}
+/* start */
+.start{max-width:640px;margin:6vh auto 0;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:28px}
+.school{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-weight:700;font-size:13px;letter-spacing:.04em;color:var(--muted);text-transform:uppercase}
+.start h1{font-size:26px;line-height:1.25;margin:18px 0 6px;text-wrap:balance}
+.start .sub{color:var(--muted);margin:0 0 20px}
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:0 0 20px;padding:0;list-style:none}
+.facts li{background:var(--surface2);border-radius:10px;padding:10px 12px;font-size:13px;color:var(--muted)}
+.facts b{display:block;font-size:20px;color:var(--ink)}
+.field{display:grid;gap:4px;margin-bottom:12px;font-weight:600;font-size:13px}
+.field input{font:inherit;font-weight:400;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink)}
+.rules{margin:18px 0 22px;padding-left:18px;color:var(--muted);font-size:14px}
+.rules li{margin:3px 0}
+/* top bar */
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 14px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.bar .who{min-width:0;flex:1 1 180px}
+.bar .who b{display:block;line-height:1.25}
+.bar .who span{font-size:12px;color:var(--muted);display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.timer{font-variant-numeric:tabular-nums;font-weight:700;font-size:22px;padding:4px 12px;border-radius:8px;background:var(--surface2)}
+.timer.low{background:var(--bad-soft);color:var(--bad)}
+.progress{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+/* grid */
+.grid{display:grid;grid-template-columns:minmax(0,1fr) 270px;gap:16px;align-items:start}
+.rail{position:sticky;top:calc(env(safe-area-inset-top,0px) + 84px);display:grid;gap:12px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px}
+.pal{padding:12px 14px}
+.pal summary{font-weight:700;cursor:pointer;list-style:none;display:flex;justify-content:space-between}
+.pal summary::-webkit-details-marker{display:none}
+.nums{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-top:10px}
+.nums button{position:relative;border:1px solid var(--line);background:var(--surface2);border-radius:7px;padding:6px 0;font-weight:600;font-variant-numeric:tabular-nums}
+.nums button.done{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.nums button.flag::after{content:"";position:absolute;top:-1px;right:-1px;border-style:solid;border-width:0 12px 12px 0;border-color:transparent var(--warn) transparent transparent;border-top-right-radius:7px}
+.nums button.ok{background:var(--ok-soft);border-color:var(--ok);color:var(--ok)}
+.nums button.bad{background:var(--bad-soft);border-color:var(--bad);color:var(--bad)}
+.nums button.skip{background:var(--warn-soft);border-color:var(--warn);color:var(--warn)}
+.legend{display:flex;gap:10px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin-top:10px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:4px;vertical-align:-1px;border:1px solid var(--line)}
+.tabs{display:grid;gap:6px;padding:12px 14px}
+.tabs button{display:flex;justify-content:space-between;gap:8px;text-align:left;border:1px solid var(--line);background:var(--surface2);border-radius:8px;padding:7px 10px;font-size:13px}
+.tabs button[aria-current="true"]{border-color:var(--accent);background:var(--accent-soft);font-weight:600}
+.tabs small{color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+/* section */
+.sech{padding:14px 18px;margin-bottom:14px}
+.sech .k{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
+.sech h2{margin:2px 0 6px;font-size:19px;line-height:1.3}
+.sech .en{font-family:var(--read);font-style:italic;color:var(--muted);margin:0 0 4px}
+.sech .vi{margin:0}
+.split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px;align-items:start}
+.split.single{grid-template-columns:minmax(0,1fr)}
+.passage{padding:16px 20px;font-family:var(--read);font-size:16.5px;line-height:1.65;position:sticky;top:calc(env(safe-area-inset-top,0px) + 84px);max-height:calc(100vh - 100px);overflow:auto}
+.passage p{margin:0 0 .75em;text-align:justify;hyphens:auto}
+.passage p.para{text-indent:1.4em}
+.passage p.title{text-align:center;font-weight:600;text-indent:0}
+.passage p.src{text-align:right;font-size:13px;font-style:italic;color:var(--muted);text-indent:0}
+.passage p.sub{font-weight:600;text-indent:0;margin-bottom:.3em}
+.passage .pn{font-family:var(--ui);font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--accent);background:var(--accent-soft);padding:1px 7px;border-radius:99px;margin-right:6px;text-indent:0;white-space:nowrap}
+.blank{background:var(--accent-soft);border-radius:4px;padding:0 3px;font-family:var(--ui);font-size:.88em;font-weight:600;white-space:nowrap}
+.qs{display:grid;gap:12px;min-width:0}
+.q{padding:14px 16px}
+.q.focus{box-shadow:0 0 0 3px var(--accent)}
+.qh{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+.qn{font-weight:700;background:var(--ink);color:var(--bg);border-radius:6px;padding:1px 9px;font-variant-numeric:tabular-nums}
+.tag{font-size:12px;font-weight:700;border-radius:99px;padding:2px 10px}
+.tag.ok{background:var(--ok-soft);color:var(--ok)}.tag.bad{background:var(--bad-soft);color:var(--bad)}.tag.skip{background:var(--warn-soft);color:var(--warn)}
+.flagbtn{margin-left:auto;border:1px solid var(--line);background:var(--surface2);border-radius:99px;padding:2px 11px;font-size:12.5px}
+.flagbtn[aria-pressed="true"]{background:var(--warn-soft);border-color:var(--warn);color:var(--warn);font-weight:600}
+.stem{font-family:var(--read);font-size:16.5px;margin:0 0 8px}
+.stem.hint{font-family:var(--ui);font-size:14px;color:var(--muted)}
+.arr{font-family:var(--read);font-size:16px;margin:0 0 10px;padding:8px 12px;background:var(--surface2);border-radius:8px;display:grid;gap:3px}
+.arr div{display:flex;gap:8px}.arr b{font-family:var(--ui);min-width:1.1em}
+.center{font-family:var(--read);font-weight:600;text-align:center;background:var(--surface2);border-radius:8px;padding:8px 12px;margin:0 0 10px}
+.opts{display:grid;gap:6px}
+.opts.two{grid-template-columns:1fr 1fr}
+.opt{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line);border-radius:9px;padding:8px 12px;cursor:pointer;background:var(--surface);min-width:0}
+.opt input{position:absolute;opacity:0;pointer-events:none}
+.opt .l{flex:none;width:26px;height:26px;border-radius:50%;border:1.5px solid var(--muted);display:grid;place-items:center;font-weight:700;font-size:13px}
+.opt .t{padding-top:1px;overflow-wrap:anywhere}
+.opt:hover{border-color:var(--accent)}
+.opt:has(input:checked){border-color:var(--accent);background:var(--accent-soft)}
+.opt:has(input:checked) .l{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.rev .opt{cursor:default}.rev .opt:hover{border-color:var(--line)}
+.opt.ok{border-color:var(--ok);background:var(--ok-soft)}.opt.ok .l{background:var(--ok);border-color:var(--ok);color:var(--bg)}
+.opt.bad{border-color:var(--bad);background:var(--bad-soft)}.opt.bad .l{background:var(--bad);border-color:var(--bad);color:var(--bg)}
+.opt .m{margin-left:auto;font-size:12px;font-weight:700;white-space:nowrap;padding-left:8px}
+.opt.ok .m{color:var(--ok)}.opt.bad .m{color:var(--bad)}
+.ex{margin-top:12px;border-top:1px dashed var(--line);padding-top:12px;display:grid;gap:8px;font-size:14.5px}
+.ex p{margin:0}
+.ex .tip{background:var(--accent-soft);border-radius:8px;padding:8px 12px}
+.ex .tip b{color:var(--accent)}
+.ex .vi{color:var(--muted)}
+.nav{display:flex;justify-content:space-between;gap:10px;margin-top:14px;flex-wrap:wrap}
+/* result */
+.hero{padding:22px;display:grid;grid-template-columns:auto 1fr;gap:22px;align-items:center;margin-bottom:14px}
+.score{text-align:center;min-width:150px}
+.score .n{font-size:56px;font-weight:700;line-height:1;font-variant-numeric:tabular-nums}
+.score .of{color:var(--muted);font-weight:600}
+.hero h1{margin:0 0 4px;font-size:22px}
+.hero p{margin:0;color:var(--muted)}
+.stats{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.stat{border-radius:10px;padding:8px 14px;background:var(--surface2);min-width:96px}
+.stat b{display:block;font-size:20px;font-variant-numeric:tabular-nums}.stat span{font-size:12px;color:var(--muted)}
+.stat.ok b{color:var(--ok)}.stat.bad b{color:var(--bad)}.stat.skip b{color:var(--warn)}
+.bysec{display:grid;gap:6px;margin-top:6px}
+.bysec div{display:grid;grid-template-columns:minmax(120px,210px) 1fr 52px;gap:10px;align-items:center;font-size:13px}
+.track{height:8px;background:var(--surface2);border-radius:99px;overflow:hidden}.track i{display:block;height:100%;background:var(--ok)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.chips button{border:1px solid var(--line);background:var(--surface);border-radius:99px;padding:5px 14px;font-size:13.5px}
+.chips button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.rsec{margin-bottom:22px}
+.rsec>details{margin-bottom:10px}
+.rsec>details>summary{cursor:pointer;font-weight:600;padding:10px 14px}
+.rsec>details .passage{position:static;max-height:none;border:0;border-top:1px solid var(--line);border-radius:0}
+.empty{padding:20px;text-align:center;color:var(--muted)}
+/* modal */
+.modal{position:fixed;inset:0;background:rgba(8,12,20,.55);display:grid;place-items:center;padding:16px;z-index:20}
+.modal .box{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px;max-width:440px;width:100%}
+.modal[hidden]{display:none}
+.modal h3{margin:0 0 8px;font-size:18px}.modal p{margin:0 0 6px}
+.modal .row{display:flex;gap:10px;justify-content:flex-end;margin-top:16px;flex-wrap:wrap}
+@media (max-width:1100px){
+  .grid{grid-template-columns:minmax(0,1fr)}
+  .rail{position:static;order:-1}
+  .split{grid-template-columns:minmax(0,1fr)}
+  .passage{position:static;max-height:none}
+  .nums{grid-template-columns:repeat(8,1fr)}
+}
+@media (max-width:560px){
+  .hero{grid-template-columns:1fr}.opts.two{grid-template-columns:1fr}.facts{grid-template-columns:1fr}
+  .bysec div{grid-template-columns:1fr 60px;}.bysec .track{grid-column:1/-1}
+  .nums{grid-template-columns:repeat(5,1fr)}.start{padding:20px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+
+<div class="wrap" id="app"></div>
+<div id="modal" class="modal" hidden></div>
+
+<script>
+const D={"secs": [{"instr": "Read the following announcement and mark the letter A, B, C, or D on your answer sheet to indicate the option that best fits each of the numbered blanks from 1 to 6.", "pass_": [{"k": "title", "h": "<b>♻ TURN WASTE INTO TREASURE ♻<\/b>"}, {"k": "para", "h": "Kitchen and garden waste does not have to end up in the bin. Last year, our school <span class=\"blank\">(1) ______<\/span> a compost pile in the garden. Before that, dry leaves were burnt in the schoolyard, <span class=\"blank\">(2) ______<\/span> caused air pollution and even fires. Today, students put fruit peels and dry leaves into <span class=\"blank\">(3) ______<\/span> pile in layers, and these materials <span class=\"blank\">(4) ______<\/span> quickly when they are kept moist. After a few weeks, they turn into rich compost, so we no longer need chemical fertilisers. Next month, our Green Club will <span class=\"blank\">(5) ______<\/span> a survey on how local households deal with their waste. Come and listen <span class=\"blank\">(6) ______<\/span> our tips for creating a compost pile at home. Everyone is welcome!"}, {"k": "src", "h": "<i>(Adapted from Global Success 12 – Unit 3)<\/i>"}], "qs": [1, 2, 3, 4, 5, 6], "name": "Thông báo · điền từ", "vi": "Đọc thông báo và chọn đáp án đúng nhất cho mỗi chỗ trống từ câu 1 đến câu 6.", "numbered": false, "range": "Câu 1–6"}, {"instr": "Read the following leaflet and mark the letter A, B, C, or D on your answer sheet to indicate the option that best fits each of the numbered blanks from 7 to 12.", "pass_": [{"k": "title", "h": "<b>★ LIFE STORIES WE ADMIRE ★<\/b>"}, {"k": "title", "h": "<i>Reading Week exhibition – come and meet people whose lives inspire us all!<\/i>"}, {"k": "sub", "h": "<b>❖ Facts and figures:<\/b>"}, {"k": "para", "h": "Dang Thuy Tram was a young <span class=\"blank\">(7) ______<\/span> who wrote her famous diary in a field hospital during the war. Her book has been translated into more than 16 languages, and a film based on it, <i>Don’t Burn<\/i>, was made in 2009. Many readers around the world still admire her courage and love for her country."}, {"k": "sub", "h": "<b>❖ Join us!<\/b>"}, {"k": "para", "h": "Listen to the life stories of heroes who <span class=\"blank\">(8) ______<\/span> their lives to the independence of Viet Nam."}, {"k": "para", "h": "Find out how Walt Disney, who <span class=\"blank\">(9) ______<\/span> of school at the age of 16, became a world-famous film maker."}, {"k": "para", "h": "Learn about the impressive <span class=\"blank\">(10) ______<\/span> of scientists such as Thomas Edison."}, {"k": "para", "h": "<span class=\"blank\">(11) ______<\/span> the exhibition, there will be a talk by a famous biographer."}, {"k": "para", "h": "Places are <span class=\"blank\">(12) ______<\/span>, so please come early."}, {"k": "src", "h": "<i>(Adapted from Global Success 12 – Unit 1)<\/i>"}], "qs": [7, 8, 9, 10, 11, 12], "name": "Tờ rơi · điền từ", "vi": "Đọc tờ rơi và chọn đáp án đúng nhất cho mỗi chỗ trống từ câu 7 đến câu 12.", "numbered": false, "range": "Câu 7–12"}, {"instr": "Mark the letter A, B, C, or D on your answer sheet to indicate the best arrangement of utterances or sentences to make a meaningful exchange or text in each of the following questions from 13 to 17.", "pass_": [], "qs": [13, 14, 15, 16, 17], "name": "Sắp xếp hội thoại và đoạn văn", "vi": "Chọn thứ tự sắp xếp hợp lý nhất để tạo thành một đoạn hội thoại hoặc một đoạn văn hoàn chỉnh (câu 13 đến câu 17).", "numbered": false, "range": "Câu 13–17"}, {"instr": "Read the following passage about Halloween in Viet Nam and mark the letter A, B, C, or D on your answer sheet to indicate the option that best fits each of the numbered blanks from 18 to 22.", "pass_": [{"k": "para", "h": "Halloween is one of the most popular international festivals among young people in Viet Nam. Its roots go back to an ancient Celtic festival <span class=\"blank\">(18) ______<\/span>. Nowadays, Halloween is celebrated annually in many Asian countries, <span class=\"blank\">(19) ______<\/span>. In Viet Nam, teenagers enjoy <span class=\"blank\">(20) ______<\/span>, such as dressing up in costumes, decorating haunted houses, and playing trick or treat. Many schools also organise Halloween parties as special events, so students have more chances to practise English and make new friends. Some people worry that international festivals <span class=\"blank\">(21) ______<\/span>. However, others believe there is no cause for alarm, <span class=\"blank\">(22) ______<\/span>. They think that young people can learn about other cultures without forgetting their own."}, {"k": "src", "h": "<i>(Adapted from Global Success 12 – Unit 2)<\/i>"}], "qs": [18, 19, 20, 21, 22], "name": "Đoạn văn · điền cụm từ", "vi": "Đọc bài về lễ Halloween ở Việt Nam và chọn đáp án đúng nhất cho mỗi chỗ trống từ câu 18 đến câu 22.", "numbered": false, "range": "Câu 18–22"}, {"instr": "Read the following passage about Walt Disney and mark the letter A, B, C, or D on your answer sheet to indicate the best answer to each of the following questions from 23 to 30.", "pass_": [{"k": "para", "h": "Walt Disney, the father of Mickey Mouse, is one of the most admired film makers in history. He was born in Chicago in 1901 and showed a talent for drawing and painting from an early age. He attended Brenton Grammar School but dropped out at the age of 16. His beginning in the film industry was difficult, and when his first company failed, he moved to Hollywood to start his career again."}, {"k": "para", "h": "In 1928, Disney created Mickey Mouse, a <b><u>cheerful<\/u><\/b> little mouse who quickly won the hearts of audiences around the world. Nine years later, <u>Snow White and the Seven Dwarfs became a great success, which proved that animated films could be as popular as live-action ones.<\/u> After that, the Walt Disney Studios continued to produce many successful films."}, {"k": "para", "h": "Disney was also a man of great ideas. He built the Disneyland theme park, where children and adults can meet <b><u>their<\/u><\/b> favourite characters. He loved telling stories, and he wanted audiences of all ages to enjoy them. Throughout his career, he won or received 26 Oscars, three Golden Globe Awards, and one Emmy Award – a record in history."}, {"k": "para", "h": "Behind his success was a happy family life. Disney married Lillian Bounds, and they were together for 41 years. They had one biological daughter and one adopted daughter. Disney died of cancer in 1966, but the Walt Disney Studios went on making live-action and animated films that continue to <b><u>inspire<\/u><\/b> people of all ages to follow their dreams."}, {"k": "src", "h": "<i>(Adapted from Global Success 12 – Unit 1)<\/i>"}], "qs": [23, 24, 25, 26, 27, 28, 29, 30], "name": "Đọc hiểu · Walt Disney", "vi": "Đọc đoạn văn về Walt Disney và chọn đáp án đúng nhất cho các câu hỏi từ câu 23 đến câu 30.", "numbered": true, "range": "Câu 23–30"}, {"instr": "Read the following passage about festivals and the environment and mark the letter A, B, C, or D on your answer sheet to indicate the best answer to each of the following questions from 31 to 40.", "pass_": [{"k": "para", "h": "<b>[I]<\/b> Festivals bring people together to celebrate traditions and share joy. <b>[II]<\/b> However, many celebrations <b><u>take a heavy toll on<\/u><\/b> the environment. <b>[III]<\/b> Balloons, sky lanterns, and fireworks fill the night sky with colour, but they also pollute the air and may start fires. <b>[IV]<\/b>"}, {"k": "para", "h": "Fortunately, many festivals around the world are becoming greener. In India, people celebrate the Forest Festival every year by planting trees, which raises awareness of the importance of forests. At the Paléo Festival in Switzerland, visitors are encouraged to travel by public transport instead of private cars, and the food stalls offer local, organic, or vegetarian dishes. The organisers also use green energy to power the stages. <b><u>They<\/u><\/b> hope that more festivals around the world will follow this example."}, {"k": "para", "h": "Organisers can take other simple steps to reduce the harm. Instead of releasing balloons and sky lanterns, they can plant trees or use reusable decorations. They should also place <b><u>enough<\/u><\/b> recycling bins around the area and ask visitors to bring their own water bottles. Visitors, in turn, should put their rubbish in the right bin and avoid buying things they do not need. In schools, students can hold green festivals, where decorations are made from recycled materials and performances are prepared by the students themselves."}, {"k": "para", "h": "Festivals do not have to harm the planet. <u>Only when organisers and visitors share the responsibility can festivals be both enjoyable and environmentally friendly.<\/u> Governments can also help by supporting eco-friendly events and teaching people about green living. With small but regular actions, we can protect nature while keeping our traditions alive."}, {"k": "src", "h": "<i>(Adapted from Global Success 12 – Unit 3 and Review 1)<\/i>"}], "qs": [31, 32, 33, 34, 35, 36, 37, 38, 39, 40], "name": "Đọc hiểu · lễ hội và môi trường", "vi": "Đọc đoạn văn về lễ hội và môi trường, chọn đáp án đúng nhất cho các câu hỏi từ câu 31 đến câu 40.", "numbered": true, "range": "Câu 31–40"}], "qs": {"1": {"n": 1, "kind": "mc", "opts": ["builds", "was building", "built", "has built"], "key": "C", "stem": "", "tip": "Last year → thì quá khứ đơn", "why": "“Last year” (năm ngoái) là dấu hiệu của quá khứ, nên dùng quá khứ đơn: <b>built<\/b>.", "wrong": "builds là hiện tại. was building nhấn mạnh việc đang xây dở. has built (hiện tại hoàn thành) không đi với “Last year”.", "vi": "Năm ngoái, trường chúng tôi đã xây một bể ủ phân trong vườn."}, "2": {"n": 2, "kind": "mc", "opts": ["which", "that", "who", "what"], "key": "A", "stem": "", "tip": "Dấu phẩy + which = “điều này”", "why": "<b>which<\/b> thay cho cả ý phía trước (lá khô bị đốt ở sân trường), nghĩa là “điều này gây ô nhiễm không khí”.", "wrong": "that không đứng ngay sau dấu phẩy. who chỉ người. what không dùng để thay cho cả mệnh đề phía trước.", "vi": "Trước đó, lá khô bị đốt ở sân trường, điều này gây ô nhiễm không khí và thậm chí cháy."}, "3": {"n": 3, "kind": "mc", "opts": ["a", "an", "∅", "the"], "key": "D", "stem": "", "tip": "Vật đã được nhắc rồi thì dùng the", "why": "“a compost pile” đã xuất hiện ở đầu bài. Nhắc lại lần hai thì dùng <b>the<\/b> (cái bể ủ ấy).", "wrong": "a, an dùng khi nhắc lần đầu. Không điền mạo từ (∅) cũng sai vì pile là danh từ đếm được số ít, cần mạo từ.", "vi": "Ngày nay học sinh cho vỏ trái cây và lá khô vào bể ủ theo từng lớp."}, "4": {"n": 4, "kind": "mc", "opts": ["rinse", "decompose", "pollute", "recycle"], "key": "B", "stem": "", "tip": "Chọn từ hợp nghĩa", "why": "Vật liệu giữ ẩm sẽ <b>decompose<\/b> (phân hủy) nhanh. Sau vài tuần chúng thành phân hữu cơ.", "wrong": "rinse = rửa. pollute = làm ô nhiễm. recycle = tái chế (do con người làm, không tự xảy ra khi giữ ẩm).", "vi": "Các vật liệu này phân hủy nhanh khi được giữ ẩm."}, "5": {"n": 5, "kind": "mc", "opts": ["carry on", "carry off", "carry out", "carry over"], "key": "C", "stem": "", "tip": "carry out a survey = tiến hành khảo sát", "why": "Cụm cố định: <b>carry out<\/b> a survey.", "wrong": "carry on = tiếp tục. carry off = giành được, mang đi. carry over = chuyển sang. Không cụm nào đi với “survey” để có nghĩa tiến hành.", "vi": "Tháng sau, Câu lạc bộ Xanh sẽ tiến hành một cuộc khảo sát về cách các hộ gia đình xử lý rác."}, "6": {"n": 6, "kind": "mc", "opts": ["to", "at", "for", "about"], "key": "A", "stem": "", "tip": "listen to = lắng nghe", "why": "Cụm cố định: <b>listen to<\/b> + danh từ.", "wrong": "listen at, for, about không phải cách nói đúng trong câu này.", "vi": "Hãy đến nghe các mẹo làm bể ủ phân tại nhà."}, "7": {"n": 7, "kind": "mc", "opts": ["soldier", "surgeon", "enemy", "dwarf"], "key": "B", "stem": "", "tip": "Đọc ngữ cảnh: làm việc ở bệnh viện dã chiến", "why": "Chị viết nhật ký trong <b>bệnh viện dã chiến<\/b>, nên nghề hợp lý là bác sĩ phẫu thuật (<b>surgeon<\/b>).", "wrong": "enemy = kẻ thù và dwarf = người lùn đều vô lý. soldier = người lính, không nói đúng nghề của chị ở bệnh viện.", "vi": "Đặng Thùy Trâm là một nữ bác sĩ phẫu thuật trẻ, người viết cuốn nhật ký nổi tiếng trong một bệnh viện dã chiến."}, "8": {"n": 8, "kind": "mc", "opts": ["attended", "adopted", "admired", "devoted"], "key": "D", "stem": "", "tip": "devote … to = cống hiến … cho", "why": "“heroes who <b>devoted<\/b> their lives to the independence” = những anh hùng đã cống hiến cả đời cho nền độc lập.", "wrong": "attended = tham dự. adopted = nhận nuôi. admired = ngưỡng mộ. Ba từ này không đi với “their lives to”.", "vi": "Nghe câu chuyện đời của những anh hùng đã cống hiến cuộc sống cho nền độc lập của Việt Nam."}, "9": {"n": 9, "kind": "mc", "opts": ["dropped in", "dropped by", "dropped out", "dropped off"], "key": "C", "stem": "", "tip": "drop out of school = bỏ học", "why": "Cụm cố định: <b>dropped out of<\/b> school (bỏ học giữa chừng).", "wrong": "dropped in = ghé thăm bất ngờ. dropped by = ghé qua. dropped off = thả xuống hoặc ngủ gật. Không cụm nào có nghĩa bỏ học.", "vi": "Tìm hiểu cách Walt Disney, người bỏ học năm 16 tuổi, trở thành nhà làm phim nổi tiếng thế giới."}, "10": {"n": 10, "kind": "mc", "opts": ["achievements", "festivities", "customs", "generations"], "key": "A", "stem": "", "tip": "impressive + danh từ chỉ thành tựu", "why": "“impressive <b>achievements<\/b> of scientists” = những thành tựu ấn tượng của các nhà khoa học.", "wrong": "festivities = lễ hội. customs = phong tục. generations = thế hệ. Các từ này không hợp với “scientists such as Thomas Edison”.", "vi": "Tìm hiểu những thành tựu ấn tượng của các nhà khoa học như Thomas Edison."}, "11": {"n": 11, "kind": "mc", "opts": ["Despite", "According to", "Because of", "Besides"], "key": "D", "stem": "", "tip": "Besides = ngoài ra", "why": "<b>Besides<\/b> the exhibition, there will be a talk… = Ngoài buổi triển lãm, còn có một buổi nói chuyện.", "wrong": "Despite = mặc dù. According to = theo như. Because of = bởi vì. Ba cụm này làm câu mất nghĩa.", "vi": "Ngoài buổi triển lãm, còn có một buổi nói chuyện của một nhà viết tiểu sử nổi tiếng."}, "12": {"n": 12, "kind": "mc", "opts": ["limit", "limited", "limitation", "limitedly"], "key": "B", "stem": "", "tip": "be + tính từ", "why": "Sau “are” cần tính từ: Places are <b>limited<\/b> = số chỗ có hạn, nên hãy đến sớm.", "wrong": "limit (động từ hoặc danh từ), limitation (danh từ), limitedly (trạng từ) đều không đứng sau “are” như một tính từ.", "vi": "Số chỗ có hạn, vì vậy hãy đến sớm."}, "13": {"n": 13, "kind": "arr", "opts": ["a – c – b", "b – a – c", "b – c – a", "c – b – a"], "key": "C", "stem": "", "tip": "Câu chào đáp lại phải đứng sau câu chào trước", "why": "b: Mai giới thiệu Alan → c: Nam chào Alan → a: Alan đáp “Pleased to meet you <b>too<\/b>”. Chữ “too” cho thấy đây là lời đáp lại nên phải đứng cuối. Thứ tự <b>b – c – a<\/b>.", "wrong": "Các thứ tự khác để câu đáp “too” đứng trước câu chào mà nó đáp lại.", "vi": "", "intro": [], "items": ["Alan: Pleased to meet you too, Nam.", "Mai: Nam, this is Alan, our new classmate from Australia.", "Nam: Hi, Alan. Nice to meet you."], "outro": []}, "14": {"n": 14, "kind": "arr", "opts": ["b – a – c – d – e", "a – b – c – d – e", "b – c – a – d – e", "b – a – d – c – e"], "key": "A", "stem": "", "tip": "Câu hỏi trước, trả lời sau; “That’s true, but” đáp lại lo lắng", "why": "b: Mai hỏi “Do you like…?” → a: Minh đáp “Yes, I do” → c: Mai nêu lo lắng → d: Minh đáp “That’s true, but…” → e: Mai đồng ý “You’re right”. Thứ tự <b>b – a – c – d – e<\/b>.", "wrong": "Các thứ tự khác làm câu trả lời xuất hiện trước câu hỏi, hoặc để “That’s true” đứng trước điều được đồng ý.", "vi": "", "intro": [], "items": ["Minh: Yes, I do. It’s quite popular in my school, and we celebrate it every year.", "Mai: Do you like celebrating Halloween, Minh?", "Mai: But some people worry that it may make young people forget their traditional festivals.", "Minh: That’s true, but I think there’s no cause for alarm. Traditional festivals are still of great importance in Viet Nam.", "Mai: You’re right. I hope we can enjoy both."], "outro": []}, "15": {"n": 15, "kind": "arr", "opts": ["b – d – c – e – a", "b – d – e – c – a", "d – b – e – c – a", "b – e – d – c – a"], "key": "B", "stem": "", "tip": "Thư: cảm ơn → kể → đề nghị", "why": "b cảm ơn đã cho mượn sách → d kể điều thú vị trong sách → e “His determination” (He = Disney) nói tiếp về ông → c “That’s why I’d like…” nêu kết quả → a đề nghị giới thiệu thêm sách. Thứ tự <b>b – d – e – c – a<\/b>.", "wrong": "Các thứ tự khác để “His determination” hoặc “That’s why” đứng trước phần mà nó nối tiếp.", "vi": "", "intro": ["Hi Nam,"], "items": ["Could you recommend another biography for me to read during the holiday?", "Thank you so much for lending me the biography of Walt Disney last week.", "That’s why I’d like to read more life stories of great people.", "It was fascinating to learn that he dropped out of school at 16 but still became a famous film maker.", "His determination also inspired me to work harder on my own dreams."], "outro": ["Write back soon.", "Hanh"]}, "16": {"n": 16, "kind": "arr", "opts": ["b – c – d – a – e", "d – b – c – a – e", "b – d – c – a – e", "b – d – a – c – e"], "key": "C", "stem": "", "tip": "Xếp theo thời gian", "why": "b giới thiệu bác sĩ Tôn Thất Tùng → d (1935–1939, đang học) → c (sau 1945) → a (1958) → e (thập niên 1960). Thứ tự <b>b – d – c – a – e<\/b>.", "wrong": "Các thứ tự khác làm mốc thời gian bị đảo lộn.", "vi": "", "intro": [], "items": ["In 1958, he performed the first heart surgery in Viet Nam.", "Ton That Tung was a famous Vietnamese surgeon who made great contributions to the medicine of Viet Nam.", "After the August Revolution in 1945, he worked as a private doctor to take care of Uncle Ho.", "From 1935 to 1939, while attending the Indochina School of Medicine and Pharmacy, he performed operations on over 200 livers of dead bodies.", "In the 1960s, he found a new surgery method that reduced bleeding and shortened the operation time to only four to eight minutes."], "outro": []}, "17": {"n": 17, "kind": "arr", "opts": ["e – b – c – d – a", "c – e – b – d – a", "e – c – d – b – a", "e – c – b – d – a"], "key": "D", "stem": "", "tip": "Bài luận: mở bài → ý kiến → Firstly / Secondly / Finally", "why": "e “Nowadays” mở đề → c “In my opinion” nêu quan điểm → b “Firstly” → d “Secondly” → a “Finally” kết. Thứ tự <b>e – c – b – d – a<\/b>.", "wrong": "Các thứ tự khác để Firstly sau Secondly, hoặc đặt Finally không ở cuối.", "vi": "", "intro": [], "items": ["Finally, it cannot be denied that these festivals also encourage extracurricular activities at school.", "Firstly, celebrating world festivals is a great way to learn about other cultures.", "In my opinion, celebrating Western festivals has more positive than negative effects on young Vietnamese.", "Secondly, festivals bring fun, happiness, and joy to young people’s lives.", "Nowadays, more and more young Vietnamese celebrate festivals such as Christmas and Halloween."], "outro": []}, "18": {"n": 18, "kind": "mc", "opts": ["which celebrated in Ireland more than two thousand years ago", "celebrated in Ireland more than two thousand years ago", "was celebrating in Ireland more than two thousand years ago", "that it was celebrated in Ireland more than two thousand years ago"], "key": "B", "stem": "", "tip": "Rút gọn mệnh đề quan hệ bị động", "why": "“a Celtic festival (which was) <b>celebrated<\/b> in Ireland…” = lễ hội được tổ chức ở Ireland. Khi rút gọn, bỏ “which was” và giữ quá khứ phân từ.", "wrong": "A “which celebrated” thiếu “was”. C “was celebrating” nghĩa chủ động, sai. D “that it was…” thừa “it”.", "vi": "Nguồn gốc của nó là một lễ hội Celt cổ xưa được tổ chức ở Ireland hơn hai nghìn năm trước."}, "19": {"n": 19, "kind": "mc", "opts": ["what shows that the festival has become increasingly popular", "that shows that the festival has become increasingly popular", "which shows that the festival has become increasingly popular", "showing which the festival has become increasingly popular"], "key": "C", "stem": "", "tip": "Dấu phẩy + which = “điều này”", "why": "<b>which shows that…<\/b> thay cho cả ý trước: Halloween được tổ chức ở nhiều nước châu Á, điều này cho thấy lễ hội ngày càng phổ biến.", "wrong": "what và that không dùng sau dấu phẩy theo cách này. D “showing which…” sai cấu trúc.", "vi": ""}, "20": {"n": 20, "kind": "mc", "opts": ["to take part in various Halloween activities", "take part in various Halloween activities", "taken part in various Halloween activities", "taking part in various Halloween activities"], "key": "D", "stem": "", "tip": "enjoy + V-ing", "why": "<b>enjoy<\/b> luôn đi với V-ing: enjoy <b>taking part in<\/b> (thích tham gia).", "wrong": "to take, take, taken không đứng sau “enjoy”.", "vi": "Ở Việt Nam, thanh thiếu niên thích tham gia các hoạt động Halloween đa dạng."}, "21": {"n": 21, "kind": "mc", "opts": ["may make young people ignore their own traditional festivals", "may make young people to ignore their own traditional festivals", "may let young people ignoring their own traditional festivals", "may cause young people ignore their own traditional festivals"], "key": "A", "stem": "", "tip": "make + người + động từ nguyên mẫu", "why": "<b>make<\/b> + O + động từ không “to”: may make young people <b>ignore<\/b>.", "wrong": "B thừa “to”. C “let … ignoring” sai (let + V nguyên mẫu). D “cause … ignore” sai (cause + O + to V).", "vi": "Một số người lo rằng lễ hội nước ngoài có thể khiến giới trẻ bỏ qua lễ hội truyền thống của mình."}, "22": {"n": 22, "kind": "mc", "opts": ["because of traditional festivals are still of great importance in Viet Nam", "as traditional festivals are still of great importance in Viet Nam", "despite traditional festivals are still of great importance in Viet Nam", "so traditional festivals are still of great importance in Viet Nam"], "key": "B", "stem": "", "tip": "as = bởi vì", "why": "“no cause for alarm, <b>as<\/b> traditional festivals are still…” = không cần lo, vì lễ hội truyền thống vẫn rất quan trọng.", "wrong": "because of và despite phải đi với danh từ, không đi với cả mệnh đề. so chỉ kết quả, sai logic.", "vi": ""}, "23": {"n": 23, "kind": "mc", "opts": ["creating Mickey Mouse", "building the Disneyland theme park", "producing Snow White and the Seven Dwarfs", "developing the phonograph"], "key": "D", "stem": "Which of the following is NOT mentioned as an achievement of Walt Disney?", "tip": "Câu NOT: tìm ý KHÔNG có trong bài", "why": "Bài không nhắc đến việc phát triển máy hát (<b>phonograph<\/b>).", "wrong": "A: tạo ra chuột Mickey. B: xây công viên Disneyland. C: sản xuất Bạch Tuyết và bảy chú lùn. Cả ba đều có trong bài.", "vi": ""}, "24": {"n": 24, "kind": "mc", "opts": ["gloomy", "lovely", "brave", "friendly"], "key": "A", "stem": "The word <b><u>cheerful<\/u><\/b> in paragraph 2 is OPPOSITE in meaning to ______.", "tip": "Từ trái nghĩa", "why": "cheerful = vui vẻ. Từ trái nghĩa là <b>gloomy<\/b> (u ám, buồn bã).", "wrong": "lovely, brave, friendly đều mang nghĩa tích cực, không trái nghĩa với cheerful.", "vi": ""}, "25": {"n": 25, "kind": "mc", "opts": ["Disney characters", "children and adults", "film makers", "theme parks"], "key": "B", "stem": "The word <b><u>their<\/u><\/b> in paragraph 3 refers to ______.", "tip": "their thay cho danh từ số nhiều đứng trước", "why": "“where <b>children and adults<\/b> can meet <b>their<\/b> favourite characters” = các nhân vật yêu thích của trẻ em và người lớn.", "wrong": "Disney characters, film makers, theme parks không phải người “meet” và có “favourite characters”.", "vi": ""}, "26": {"n": 26, "kind": "mc", "opts": ["discourage", "surprise", "encourage", "warn"], "key": "C", "stem": "The word <b><u>inspire<\/u><\/b> in paragraph 4 could be best replaced by ______.", "tip": "Từ đồng nghĩa", "why": "inspire = truyền cảm hứng, khích lệ. <b>encourage<\/b> = khuyến khích, gần nghĩa nhất.", "wrong": "discourage = làm nản lòng (trái nghĩa). surprise = làm ngạc nhiên. warn = cảnh báo.", "vi": ""}, "27": {"n": 27, "kind": "mc", "opts": ["Snow White and the Seven Dwarfs was more popular than all live-action films.", "The success of Snow White and the Seven Dwarfs showed that animated films could attract audiences as much as live-action films.", "Although Snow White and the Seven Dwarfs was a great success, animated films were still less popular than live-action ones.", "Snow White and the Seven Dwarfs succeeded because live-action films were no longer popular."], "key": "B", "stem": "Which of the following best paraphrases the underlined sentence in paragraph 2?", "tip": "Câu diễn đạt lại phải giữ đúng ý", "why": "Câu gốc: Bạch Tuyết thành công lớn, chứng tỏ phim hoạt hình có thể nổi tiếng như phim người đóng. B nói đúng ý đó.", "wrong": "A nói quá (nổi tiếng hơn tất cả). C nói ngược (vẫn kém nổi tiếng hơn). D đổi lý do thành công, bài không nói vậy.", "vi": ""}, "28": {"n": 28, "kind": "mc", "opts": ["Disney finished Brenton Grammar School before he moved to Hollywood.", "Snow White and the Seven Dwarfs appeared before Mickey Mouse was created.", "Disney and his wife spent more than forty years together.", "The Walt Disney Studios stopped making films after Disney died."], "key": "C", "stem": "Which of the following is TRUE according to the passage?", "tip": "Câu TRUE: đối chiếu với bài", "why": "Đoạn 4: Disney và Lillian bên nhau <b>41 năm<\/b>, nên “more than forty years” đúng.", "wrong": "A sai: ông bỏ học năm 16 tuổi. B sai: Mickey ra đời 1928, Bạch Tuyết 9 năm sau. D sai: hãng vẫn tiếp tục làm phim sau khi ông mất.", "vi": ""}, "29": {"n": 29, "kind": "mc", "opts": ["Paragraph 1", "Paragraph 2", "Paragraph 3", "Paragraph 4"], "key": "D", "stem": "In which paragraph does the writer describe Disney’s family life?", "tip": "Tìm đoạn có ý được hỏi", "why": "<b>Đoạn 4<\/b> bắt đầu bằng “Behind his success was a happy family life” và nói về vợ, con gái.", "wrong": "Đoạn 1: tuổi thơ và sự nghiệp ban đầu. Đoạn 2: Mickey và Bạch Tuyết. Đoạn 3: Disneyland và giải thưởng.", "vi": ""}, "30": {"n": 30, "kind": "mc", "opts": ["Paragraph 1", "Paragraph 2", "Paragraph 3", "Paragraph 4"], "key": "A", "stem": "In which paragraph does the writer mention the reason why Disney moved to Hollywood?", "tip": "Tìm đoạn có ý được hỏi", "why": "<b>Đoạn 1<\/b>: “when his first company failed, he moved to Hollywood” (vì công ty đầu tiên thất bại).", "wrong": "Các đoạn 2, 3, 4 nói về thành công và gia đình, không nói lý do chuyển đến Hollywood.", "vi": ""}, "31": {"n": 31, "kind": "ins", "opts": ["<b>[I]<\/b>", "<b>[II]<\/b>", "<b>[III]<\/b>", "<b>[IV]<\/b>"], "key": "D", "stem": "Where in paragraph 1 does the following sentence best fit?", "tip": "Câu chèn: tìm chỗ có thứ để câu chèn nhắc lại", "why": "Câu chèn nói “<b>the fallen lanterns and balloons<\/b>”, nên phải đứng sau chỗ đã nhắc đến balloons, sky lanterns. Câu trước [IV] nói chúng làm ô nhiễm và gây cháy. “Even worse” (tệ hơn nữa) nối tiếp rất hợp.", "wrong": "Ở [I], [II], [III] chưa hề nhắc đến balloons và lanterns, nên “the fallen lanterns and balloons” chưa có gì để chỉ.", "vi": "", "center": "<b>Even worse, the fallen lanterns and balloons can harm wild animals that mistake them for food.<\/b>"}, "32": {"n": 32, "kind": "mc", "opts": ["have a seriously negative effect on", "bring great benefits to", "pay little attention to", "make a strong impression on"], "key": "A", "stem": "The phrase <b><u>take a heavy toll on<\/u><\/b> in paragraph 1 could be best replaced by ______.", "tip": "Đoán nghĩa cụm từ", "why": "take a heavy toll on = gây tổn hại nặng nề cho. <b>have a seriously negative effect on<\/b> cùng nghĩa.", "wrong": "bring great benefits to = mang lại lợi ích (trái nghĩa). pay little attention to = ít quan tâm. make a strong impression on = gây ấn tượng.", "vi": ""}, "33": {"n": 33, "kind": "mc", "opts": ["visitors", "the organisers", "the food stalls", "the stages"], "key": "B", "stem": "The word <b><u>They<\/u><\/b> in paragraph 2 refers to ______.", "tip": "They thay cho danh từ số nhiều", "why": "Câu trước: “<b>The organisers<\/b> also use green energy…”. Câu sau: “<b>They<\/b> hope that more festivals will follow this example.” = ban tổ chức hy vọng.", "wrong": "visitors, food stalls, stages không phải đối tượng “hope” ở câu này.", "vi": ""}, "34": {"n": 34, "kind": "mc", "opts": ["Visitors are encouraged to use public transport.", "Food stalls offer local, organic, or vegetarian food.", "Green energy is used to power the stages.", "All tickets are made from recycled paper."], "key": "D", "stem": "According to paragraph 2, which of the following is NOT a green feature of the Paléo Festival?", "tip": "Câu NOT: tìm ý KHÔNG có trong bài", "why": "Bài không nói vé làm từ giấy tái chế (<b>All tickets…<\/b>).", "wrong": "A: khuyến khích đi phương tiện công cộng. B: quầy ăn bán món địa phương, hữu cơ, chay. C: dùng năng lượng xanh cho sân khấu. Cả ba đều có trong đoạn 2.", "vi": ""}, "35": {"n": 35, "kind": "mc", "opts": ["Visitors are the only people who should reduce rubbish at festivals.", "Balloons and sky lanterns should be replaced by fireworks.", "Organisers and visitors can take simple actions to reduce harm, and schools can hold green festivals too.", "Schools should stop organising festivals to protect the environment."], "key": "C", "stem": "Which of the following best summarises paragraph 3?", "tip": "Câu tóm tắt: đủ ý chính, không thêm ý lạ", "why": "Đoạn 3 nói ban tổ chức và khách có thể làm những việc đơn giản để giảm hại, và trường học cũng có thể tổ chức lễ hội xanh. Đáp án C.", "wrong": "A nói “chỉ” khách tham quan. B đề xuất thay bằng pháo hoa (bài không nói). D bảo trường nên ngừng tổ chức lễ hội (sai ý).", "vi": ""}, "36": {"n": 36, "kind": "mc", "opts": ["insufficient", "plenty of", "various", "suitable"], "key": "A", "stem": "The word <b><u>enough<\/u><\/b> in paragraph 3 is OPPOSITE in meaning to ______.", "tip": "Từ trái nghĩa", "why": "enough = đủ. Từ trái nghĩa là <b>insufficient<\/b> (không đủ).", "wrong": "plenty of = nhiều, gần nghĩa với enough. various = đa dạng. suitable = phù hợp.", "vi": ""}, "37": {"n": 37, "kind": "mc", "opts": ["Sky lanterns are the only cause of fires at festivals.", "Visitors to the Paléo Festival must travel by private cars.", "In India, people celebrate the Forest Festival by planting trees.", "School festivals cannot use recycled decorations."], "key": "C", "stem": "Which of the following is TRUE according to the passage?", "tip": "Câu TRUE: đối chiếu với bài", "why": "Đoạn 2: ở Ấn Độ, mọi người tổ chức Lễ hội Rừng hằng năm bằng cách trồng cây. Đáp án C.", "wrong": "A sai: không chỉ đèn trời, còn bóng bay và pháo hoa. B sai: khách được khuyến khích đi phương tiện công cộng. D sai: trường học dùng đồ trang trí tái chế.", "vi": ""}, "38": {"n": 38, "kind": "mc", "opts": ["Festivals can be both enjoyable and green only if organisers and visitors share responsibility.", "Organisers alone are responsible for making festivals enjoyable and green.", "Festivals cannot be green because visitors never take responsibility.", "Being enjoyable, festivals are always environmentally friendly."], "key": "A", "stem": "Which of the following best paraphrases the underlined sentence in paragraph 4?", "tip": "Đảo ngữ “Only when… can…”: chỉ khi… thì mới…", "why": "Câu gạch chân: chỉ khi ban tổ chức và khách cùng chia sẻ trách nhiệm thì lễ hội mới vừa vui vừa thân thiện môi trường. A nói đúng ý đó.", "wrong": "B nói ban tổ chức “một mình” chịu trách nhiệm. C nói khách “không bao giờ” có trách nhiệm. D nói lễ hội vui thì luôn xanh, bài không nói vậy.", "vi": ""}, "39": {"n": 39, "kind": "mc", "opts": ["Festivals will disappear if they continue to harm the environment.", "Making festivals greener is possible without taking away people’s enjoyment.", "Large festivals are always more harmful than small school events.", "Sky lanterns are the only thing organisers need to replace."], "key": "B", "stem": "Which of the following can be inferred from the passage?", "tip": "Câu suy ra: kết luận hợp lý từ ví dụ trong bài", "why": "Bài cho thấy nhiều lễ hội vẫn diễn ra vui vẻ nhưng đã xanh hơn (trồng cây, đi phương tiện công cộng, đồ trang trí tái chế). Vậy suy ra: làm lễ hội xanh hơn mà vẫn giữ niềm vui là có thể. Đáp án B.", "wrong": "A: bài không nói lễ hội sẽ biến mất. C: bài không so sánh lễ hội lớn và nhỏ như vậy. D: “only thing” (chỉ cần thay đèn trời) sai.", "vi": ""}, "40": {"n": 40, "kind": "mc", "opts": ["Festivals are enjoyable, so people should not worry about their effect on the environment.", "Fireworks, balloons, and sky lanterns should be banned at all festivals in the world.", "The Paléo Festival and the Forest Festival are the most environmentally friendly festivals in the world.", "Although many festivals harm the environment, organisers and visitors can make them greener through simple, regular actions."], "key": "D", "stem": "Which of the following best summarises the passage?", "tip": "Câu tóm tắt cả bài", "why": "Ý cả bài: nhiều lễ hội gây hại môi trường, nhưng ban tổ chức và khách có thể làm cho chúng xanh hơn bằng những việc nhỏ, đều đặn. Đáp án D.", "wrong": "A bảo mọi người không cần lo (sai ý). B đề nghị cấm hoàn toàn (quá cực đoan). C nói hai lễ hội “xanh nhất thế giới” (bài không nói).", "vi": ""}}};
+const secs=D.secs,Q=D.qs,N=40,TOTAL=50*60;
+const L='ABCD';
+const S={ans:{},flag:{},sec:0,left:TOTAL,name:'',cls:'',used:0,filter:'all',timer:null};
+const $=(s,r=document)=>r.querySelector(s);
+const app=$('#app');
+const secOf=n=>secs.findIndex(s=>s.qs.includes(n));
+const fmt=s=>String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');
+const sc=c=>(c*0.25).toString().replace('.',',');
+const esc=t=>String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+function start(){
+  app.innerHTML=`<div class="start">
+    <div class="school"><span>Sở GD&amp;ĐT Đồng Tháp</span><span>Trường THPT Phú Điền</span></div>
+    <h1>Kiểm tra giữa học kì 1 · Tiếng Anh 12 · Đề số 2</h1>
+    <p class="sub">Làm bài trên máy tính. Nộp bài xong sẽ có điểm và lời giải thích từng câu.</p>
+    <ul class="facts"><li><b>40 câu</b>trắc nghiệm</li><li><b>50 phút</b>tự động nộp khi hết giờ</li><li><b>0,25 điểm</b>mỗi câu đúng</li></ul>
+    <label class="field" for="nm">Họ và tên<input id="nm" autocomplete="name" placeholder="Ví dụ: Nguyễn Văn An"></label>
+    <label class="field" for="cl">Lớp<input id="cl" placeholder="Ví dụ: 12A1"></label>
+    <ul class="rules"><li>Mỗi câu chọn một đáp án. Bạn có thể đổi đáp án bất cứ lúc nào trước khi nộp.</li>
+    <li>Bấm “Đánh dấu xem lại” cho câu chưa chắc. Câu đó sẽ có góc vàng trong bảng câu hỏi.</li>
+    <li>Đồng hồ bắt đầu chạy khi bạn bấm nút bên dưới.</li></ul>
+    <button class="btn primary" id="go">Bắt đầu làm bài</button></div>`;
+  $('#go').onclick=()=>{S.name=$('#nm').value.trim();S.cls=$('#cl').value.trim();S.ans={};S.flag={};S.sec=0;S.left=TOTAL;begin()};
+}
+function begin(){
+  renderExam();
+  clearInterval(S.timer);
+  S.timer=setInterval(()=>{S.left--;updTimer();if(S.left<=0)submit()},1000);
+  window.scrollTo(0,0);
+}
+function updTimer(){const t=$('#timer');if(!t)return;t.textContent=fmt(Math.max(S.left,0));t.classList.toggle('low',S.left<=300)}
+const answered=()=>Object.keys(S.ans).length;
+
+function passageHTML(s){
+  let n=0;
+  return s.pass_.map(p=>{
+    if(p.k==='para'){n++;return `<p class="para">${s.numbered?`<span class="pn">Đoạn ${n}</span>`:''}${p.h}</p>`}
+    return `<p class="${p.k}">${p.h}</p>`}).join('');
+}
+function qHTML(n,rev){
+  const q=Q[n],a=S.ans[n];
+  let h=`<article class="card q" id="q${n}"><div class="qh"><span class="qn">Câu ${n}</span>`;
+  if(rev){const t=!a?['skip','Chưa làm']:a===q.key?['ok','Đúng']:['bad','Sai'];h+=`<span class="tag ${t[0]}">${t[1]}</span>`}
+  else h+=`<button class="flagbtn" data-flag="${n}" aria-pressed="${!!S.flag[n]}">${S.flag[n]?'Đã đánh dấu':'Đánh dấu xem lại'}</button>`;
+  h+='</div>';
+  if(q.kind==='arr'){
+    h+='<p class="stem hint">Sắp xếp các câu theo thứ tự hợp lý:</p><div class="arr">';
+    q.intro.forEach(x=>h+=`<div><span>${x}</span></div>`);
+    q.items.forEach((x,i)=>h+=`<div><b>${'abcdef'[i]}.</b><span>${x}</span></div>`);
+    q.outro.forEach(x=>h+=`<div><span>${x}</span></div>`);
+    h+='</div>';
+  }else if(q.kind==='ins'){
+    h+=`<p class="stem">${q.stem}</p><div class="center">${q.center}</div>`;
+  }else if(q.stem){h+=`<p class="stem">${q.stem}</p>`}
+  else h+=`<p class="stem hint">Chọn đáp án đúng nhất cho chỗ trống (${n}).</p>`;
+  const long=q.opts.some(o=>o.replace(/<[^>]+>/g,'').length>34);
+  h+=`<div class="opts ${long?'':'two'}" role="radiogroup" aria-label="Câu ${n}">`;
+  q.opts.forEach((o,i)=>{
+    const c=L[i];let cls='opt',mark='';
+    if(rev){if(c===q.key){cls+=' ok';mark='<span class="m">✓ Đáp án đúng</span>'}else if(c===a){cls+=' bad';mark='<span class="m">✗ Bạn chọn</span>'}
+      h+=`<div class="${cls}"><span class="l">${c}</span><span class="t">${o}</span>${mark}</div>`}
+    else h+=`<label class="opt"><input type="radio" name="q${n}" value="${c}" ${a===c?'checked':''}><span class="l">${c}</span><span class="t">${o}</span></label>`;
+  });
+  h+='</div>';
+  if(rev){
+    const ko=q.opts[L.indexOf(q.key)].replace(/<[^>]+>/g,'');
+    h+=`<div class="ex"><p><b>Đáp án đúng: ${q.key}. ${esc(ko)}</b></p>
+      <p class="tip"><b>Mẹo:</b> ${esc(q.tip)}</p>
+      <p><b>Vì sao đúng?</b> ${q.why}</p>
+      <p><b>Vì sao các đáp án khác sai?</b> ${q.wrong}</p>
+      ${q.vi?`<p class="vi"><b>Dịch nghĩa:</b> ${q.vi}</p>`:''}</div>`;
+  }
+  return h+'</article>';
+}
+function palette(rev){
+  let h='<div class="nums">';
+  for(let n=1;n<=N;n++){
+    let c='';
+    if(rev){const a=S.ans[n];c=!a?'skip':a===Q[n].key?'ok':'bad'}
+    else c=(S.ans[n]?'done ':'')+(S.flag[n]?'flag':'');
+    h+=`<button class="${c}" data-go="${n}" aria-label="Câu ${n}">${n}</button>`;
+  }
+  h+='</div>';
+  h+=rev?'<div class="legend"><span><i style="background:var(--ok-soft);border-color:var(--ok)"></i>Đúng</span><span><i style="background:var(--bad-soft);border-color:var(--bad)"></i>Sai</span><span><i style="background:var(--warn-soft);border-color:var(--warn)"></i>Chưa làm</span></div>'
+    :'<div class="legend"><span><i style="background:var(--accent)"></i>Đã làm</span><span><i style="background:var(--warn)"></i>Cần xem lại</span><span><i></i>Chưa làm</span></div>';
+  return h;
+}
+function renderExam(keepScroll){
+  const s=secs[S.sec];
+  const single=!s.pass_.length;
+  app.innerHTML=`<div class="bar"><div class="who"><b>Đề số 2 · Tiếng Anh 12</b><span>${esc(S.name||'Thí sinh')}${S.cls?' · '+esc(S.cls):''}</span></div>
+    <span class="progress" id="prog">${answered()}/${N} câu đã làm</span><span class="timer" id="timer">${fmt(S.left)}</span>
+    <button class="btn primary" id="sub">Nộp bài</button></div>
+    <div class="grid"><div>
+      <section class="card sech"><div class="k">Phần ${S.sec+1}/${secs.length} · ${s.range}</div><h2>${s.name}</h2>
+        <p class="en">${s.instr}</p><p class="vi">${s.vi}</p></section>
+      <div class="split ${single?'single':''}">${single?'':`<aside class="card passage" tabindex="0" aria-label="Bài đọc">${passageHTML(s)}</aside>`}
+        <div class="qs">${s.qs.map(n=>qHTML(n,false)).join('')}</div></div>
+      <div class="nav"><button class="btn" id="prev" ${S.sec===0?'disabled':''}>← Phần trước</button>
+        ${S.sec<secs.length-1?'<button class="btn primary" id="next">Phần sau →</button>':'<button class="btn primary" id="sub2">Nộp bài</button>'}</div>
+    </div>
+    <aside class="rail"><details class="card pal" id="pal" open><summary><span>Bảng câu hỏi</span><span class="progress" id="prog2">${answered()}/${N}</span></summary>${palette(false)}</details>
+      <div class="card tabs">${secs.map((x,i)=>`<button data-sec="${i}" aria-current="${i===S.sec}"><span>${x.range} · ${x.name}</span><small>${x.qs.filter(n=>S.ans[n]).length}/${x.qs.length}</small></button>`).join('')}</div></aside></div>`;
+  updTimer();
+  if(innerWidth<=1100)$('#pal').open=false;
+}
+function refreshSide(){
+  $('#prog').textContent=answered()+'/'+N+' câu đã làm';
+  $('#prog2').textContent=answered()+'/'+N;
+  const d=$('#pal');const o=d.open;d.querySelector('.nums').outerHTML=palette(false).split('</div>')[0]+'</div>';
+  document.querySelectorAll('.tabs button').forEach((b,i)=>{const x=secs[i];b.querySelector('small').textContent=x.qs.filter(n=>S.ans[n]).length+'/'+x.qs.length});
+}
+function goTo(n,rev){
+  const i=secOf(n);
+  if(!rev&&i!==S.sec){S.sec=i;renderExam()}
+  const el=$('#q'+n);if(!el)return;
+  el.scrollIntoView({behavior:'smooth',block:'center'});
+  el.classList.add('focus');setTimeout(()=>el.classList.remove('focus'),1400);
+}
+function askSubmit(){
+  const un=[];for(let n=1;n<=N;n++)if(!S.ans[n])un.push(n);
+  const m=$('#modal');m.hidden=false;
+  m.innerHTML=`<div class="box" role="dialog" aria-modal="true" aria-labelledby="mt"><h3 id="mt">Nộp bài?</h3>
+   <p>Bạn đã làm <b>${N-un.length}/${N}</b> câu.</p>
+   ${un.length?`<p>Còn <b>${un.length}</b> câu chưa làm: ${un.join(', ')}.</p>`:'<p>Bạn đã trả lời tất cả các câu.</p>'}
+   <p>Sau khi nộp, bạn không thể sửa đáp án.</p>
+   <div class="row"><button class="btn" id="mno">Làm tiếp</button><button class="btn primary" id="myes">Nộp bài</button></div></div>`;
+  $('#mno').onclick=()=>{m.hidden=true};
+  $('#myes').onclick=()=>{m.hidden=true;submit()};
+  $('#myes').focus();
+}
+function submit(){
+  clearInterval(S.timer);S.timer=null;
+  S.used=TOTAL-Math.max(S.left,0);S.filter='all';
+  $('#modal').hidden=true;
+  renderResult();window.scrollTo(0,0);
+}
+function stat(){
+  let ok=0,bad=0,skip=0;
+  for(let n=1;n<=N;n++){const a=S.ans[n];if(!a)skip++;else if(a===Q[n].key)ok++;else bad++}
+  return{ok,bad,skip};
+}
+function msg(p){return p>=9?'Xuất sắc. Bạn nắm rất chắc bài.':p>=8?'Giỏi. Chỉ còn vài chỗ cần chú ý.':p>=6.5?'Khá. Xem lại các câu sai để lên điểm nhanh.':p>=5?'Trung bình. Đọc kỹ phần giải thích ở các câu sai.':'Cần ôn thêm. Bắt đầu từ các mẹo trong phần giải thích.'}
+function renderResult(){
+  const st=stat(),pts=st.ok*0.25;
+  const show=n=>{const a=S.ans[n];const r=!a?'skip':a===Q[n].key?'ok':'bad';return S.filter==='all'||S.filter===r};
+  const body=secs.map((s,i)=>{
+    const qn=s.qs.filter(show);if(!qn.length)return'';
+    return `<section class="rsec"><div class="card sech"><div class="k">${s.range}</div><h2>${s.name}</h2></div>
+      ${s.pass_.length?`<details class="card"><summary>Xem lại bài đọc</summary><div class="passage">${passageHTML(s)}</div></details>`:''}
+      <div class="qs rev">${qn.map(n=>qHTML(n,true)).join('')}</div></section>`}).join('')||'<div class="card empty">Không có câu nào trong mục này.</div>';
+  const bys=secs.map(s=>{const c=s.qs.filter(n=>S.ans[n]===Q[n].key).length;return `<div><span>${s.range} · ${s.name}</span><span class="track"><i style="width:${c/s.qs.length*100}%"></i></span><span>${c}/${s.qs.length}</span></div>`}).join('');
+  const cnt=k=>k==='all'?N:k==='ok'?st.ok:k==='bad'?st.bad:st.skip;
+  app.innerHTML=`<div class="card hero"><div class="score"><div class="n">${sc(st.ok)}</div><div class="of">trên 10 điểm</div></div>
+    <div><h1>${esc(S.name||'Thí sinh')}${S.cls?' · '+esc(S.cls):''}</h1><p>${msg(pts)} Thời gian làm bài: ${fmt(S.used)}.</p>
+    <div class="stats"><div class="stat ok"><b>${st.ok}</b><span>câu đúng</span></div><div class="stat bad"><b>${st.bad}</b><span>câu sai</span></div><div class="stat skip"><b>${st.skip}</b><span>chưa làm</span></div></div>
+    <div class="bysec">${bys}</div>
+    <div class="nav" style="justify-content:flex-start"><button class="btn primary" id="again">Làm lại đề</button></div></div></div>
+    <div class="grid"><div><div class="chips" role="group" aria-label="Lọc câu hỏi">${[['all','Tất cả'],['bad','Câu sai'],['skip','Chưa làm'],['ok','Câu đúng']].map(f=>`<button data-f="${f[0]}" aria-pressed="${S.filter===f[0]}">${f[1]} (${cnt(f[0])})</button>`).join('')}</div>${body}</div>
+    <aside class="rail"><details class="card pal" open><summary>Bảng kết quả</summary>${palette(true)}</details></aside></div>`;
+}
+app.addEventListener('change',e=>{
+  const t=e.target;if(t.type==='radio'){S.ans[+t.name.slice(1)]=t.value;refreshSide()}
+});
+app.addEventListener('click',e=>{
+  const b=e.target.closest('button');if(!b)return;
+  if(b.dataset.flag){const n=+b.dataset.flag;S.flag[n]=!S.flag[n];b.setAttribute('aria-pressed',!!S.flag[n]);b.textContent=S.flag[n]?'Đã đánh dấu':'Đánh dấu xem lại';refreshSide();return}
+  if(b.dataset.go){goTo(+b.dataset.go,!S.timer);return}
+  if(b.dataset.sec){S.sec=+b.dataset.sec;renderExam();window.scrollTo(0,0);return}
+  if(b.dataset.f){S.filter=b.dataset.f;renderResult();return}
+  if(b.id==='next'){S.sec++;renderExam();window.scrollTo(0,0)}
+  else if(b.id==='prev'){S.sec--;renderExam();window.scrollTo(0,0)}
+  else if(b.id==='sub'||b.id==='sub2')askSubmit();
+  else if(b.id==='again'){start();window.scrollTo(0,0)}
+});
+start();
+</script>
