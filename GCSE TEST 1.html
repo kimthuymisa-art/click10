@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#1a56db">
+<title>Kiểm tra giữa học kì 1 – Tiếng Anh 12 – Đề số 1</title>
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:#f2f4f8;color:#1c2430;font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
+[hidden]{display:none!important}
+.wrap{max-width:760px;margin:0 auto;padding:12px}
+.card,.q,.pas{background:#fff;border:1px solid #dbe1e8;border-radius:12px;padding:14px}
+.card{margin-bottom:12px}
+.hd{display:flex;gap:10px;font-size:13px;text-align:center;line-height:1.4}
+.hd div{flex:1}.hd div:first-child{font-weight:700}
+.meta{text-align:center;color:#556;margin:12px 0 0}
+label{display:block;margin:14px 0 4px;font-size:14px;font-weight:600}
+input{width:100%;padding:11px;font:inherit;border:1px solid #b6c0cc;border-radius:8px}
+button{font-family:inherit;font-size:16px;cursor:pointer;touch-action:manipulation}
+.btn{display:block;width:100%;margin-top:14px;padding:13px;border:0;border-radius:10px;background:#1a56db;color:#fff;font-weight:700}
+.btn.ghost{background:#e8edf3;color:#1c2430}
+.rules{color:#556;font-size:14px;padding-left:18px}
+.src{font-size:13px;color:#667;font-style:italic;margin:.4em 0}
+.bar{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:12px;padding:8px 12px;background:#1a56db;color:#fff}
+.bar.low{background:#c62828}
+#time{font-size:20px;font-variant-numeric:tabular-nums;min-width:64px}
+.sp{flex:1;font-size:14px}
+.bar button{padding:8px 12px;border:0;border-radius:8px;background:#fff;color:#1a56db;font-weight:700;font-size:14px}
+section{margin-bottom:18px}
+.ins{font-weight:700;font-style:italic;margin:14px 0 8px}
+.pas{margin-bottom:10px;border-left:4px solid #1a56db}
+.pas p{margin:.55em 0}.pas .h{font-weight:700}.pas .c{text-align:center}.pas .li{padding-left:6px}
+.q{margin:10px 0;scroll-margin-top:60px}
+.q h3{margin:0 0 6px;font-size:15px;color:#1a56db}
+.q p{margin:.45em 0}
+.opt{display:flex;gap:10px;align-items:flex-start;width:100%;min-height:46px;margin-top:8px;padding:10px 12px;text-align:left;color:inherit;background:#fff;border:1.5px solid #c3ccd8;border-radius:10px}
+.opt>b{flex:none;width:26px;height:26px;line-height:26px;text-align:center;border-radius:50%;background:#e8edf3;font-size:14px}
+.opt.sel{border-color:#1a56db;background:#e8f0fe}.opt.sel>b{background:#1a56db;color:#fff}
+.opt.ok{border-color:#2e7d32;background:#e6f4ea}.opt.ok>b{background:#2e7d32;color:#fff}
+.opt.bad{border-color:#c62828;background:#fdecea}.opt.bad>b{background:#c62828;color:#fff}
+.locked .opt{pointer-events:none}
+.end{text-align:center;font-weight:700;margin:18px 0 0}
+.score{font-size:40px;font-weight:800;color:#1a56db;margin:4px 0}
+#res h2{margin:0 0 4px;font-size:18px}
+#sheet{position:fixed;inset:0;z-index:10;display:flex;align-items:flex-end;background:rgba(0,0,0,.45)}
+#sheet>div{width:100%;max-height:82vh;overflow:auto;padding:16px;background:#fff;border-radius:16px 16px 0 0}
+#sheet h3{margin:0 0 10px}
+.grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.grid button{padding:10px 0;background:#fff;border:1.5px solid #c3ccd8;border-radius:8px}
+.grid .dn{background:#1a56db;border-color:#1a56db;color:#fff}
+.grid .ok{background:#2e7d32;border-color:#2e7d32;color:#fff}
+.grid .bad{background:#c62828;border-color:#c62828;color:#fff}
+</style>
+</head>
+<body>
+<div id="start" class="wrap">
+ <div class="card">
+  <div class="hd" id="hd"></div>
+  <p class="meta" id="meta"></p>
+  <label for="nm">Họ và tên</label><input id="nm" autocomplete="name">
+  <label for="cl">Lớp</label><input id="cl" placeholder="VD: 12A1">
+  <button class="btn" id="go">Bắt đầu làm bài</button>
+  <ul class="rules" id="rules"></ul>
+  <p class="src">Đồng hồ chạy từ lúc bấm “Bắt đầu”. Bài làm được lưu tự động, tải lại trang vẫn giữ nguyên bài và thời gian.</p>
+ </div>
+</div>
+
+<div id="exam" hidden>
+ <div class="bar"><b id="time">--:--</b><span class="sp">Đã làm <b id="cnt">0/40</b></span><button id="sh">Phiếu trả lời</button></div>
+ <div class="wrap">
+  <div class="card" id="res" hidden>
+   <h2>Kết quả</h2><p id="who"></p><div class="score" id="sc"></div><p id="det"></p>
+   <button class="btn ghost" id="again">Làm lại</button>
+  </div>
+  <div id="paper"></div>
+  <p class="end">-------- THE END --------</p>
+  <button class="btn" id="sb">Nộp bài</button>
+ </div>
+</div>
+
+<div id="sheet" hidden><div>
+ <h3>Phiếu trả lời</h3><div class="grid" id="grid"></div>
+ <button class="btn" id="sb2">Nộp bài</button><button class="btn ghost" id="cl2">Đóng</button>
+</div></div>
+
+<script>
+const EXAM={"head": {"l": ["SỞ GD&amp;ĐT ĐỒNG THÁP", "TRƯỜNG THPT PHÚ ĐIỀN", "ĐỀ SỐ 1"], "r": ["KIỂM TRA GIỮA HỌC KÌ 1 – NĂM HỌC 2026 – 2027", "MÔN: TIẾNG ANH 12", "Thời gian làm bài 50 phút, không kể thời gian phát đề"], "rules": ["Học sinh không được sử dụng tài liệu.", "Giám thị không giải thích gì thêm."]}, "sections": [{"instr": "Read the following school newsletter article and mark the letter A, B, C, or D on your answer sheet to indicate the option that best fits each of the numbered blanks from 1 to 6.", "blocks": [{"c": "h c", "h": "<b>♻ GREEN CLASSROOM – GREEN FUTURE ♻<\/b>"}, {"c": "", "h": "Last month, Class 12C1 won first prize in our school’s Green Classroom Competition. Before the contest, the students were worried about the amount of waste in their classroom, so they decided to take action. While some students (1) ______ plant pots from old plastic bottles, others were putting reminders about saving electricity near the door. They also placed (2) ______ big water jug in the room, so nobody has to buy single-use bottles any more. Every week, two students take turns to (3) ______ the plants, and everyone must switch off the lights before leaving, (4) ______ saves a lot of electricity. The judges were impressed by the students’ creative ideas and strong team spirit. “Our success depends (5) ______ everyone’s effort,” said the class monitor. “We have also learnt that small actions can raise (6) ______ about green living in the whole school.”"}, {"c": "src", "h": "<i>(Adapted from Global Success 12 – Unit 3)<\/i>"}], "qs": [{"n": 1, "parts": [], "opts": [{"l": "A", "h": "have made"}, {"l": "B", "h": "were making"}, {"l": "C", "h": "made"}, {"l": "D", "h": "make"}], "note": ""}, {"n": 2, "parts": [], "opts": [{"l": "A", "h": "a"}, {"l": "B", "h": "an"}, {"l": "C", "h": "the"}, {"l": "D", "h": "∅"}], "note": ""}, {"n": 3, "parts": [], "opts": [{"l": "A", "h": "look for"}, {"l": "B", "h": "look up"}, {"l": "C", "h": "look after"}, {"l": "D", "h": "look at"}], "note": ""}, {"n": 4, "parts": [], "opts": [{"l": "A", "h": "who"}, {"l": "B", "h": "that"}, {"l": "C", "h": "what"}, {"l": "D", "h": "which"}], "note": ""}, {"n": 5, "parts": [], "opts": [{"l": "A", "h": "in"}, {"l": "B", "h": "on"}, {"l": "C", "h": "for"}, {"l": "D", "h": "with"}], "note": ""}, {"n": 6, "parts": [], "opts": [{"l": "A", "h": "footprint"}, {"l": "B", "h": "packaging"}, {"l": "C", "h": "awareness"}, {"l": "D", "h": "convenience"}], "note": ""}]}, {"instr": "Read the following leaflet and mark the letter A, B, C, or D on your answer sheet to indicate the option that best fits each of the numbered blanks from 7 to 12.", "blocks": [{"c": "h c", "h": "<b>★ TASTE THE WORLD – CULTURAL DIVERSITY DAY ★<\/b>"}, {"c": "c", "h": "<i>Come and discover the world without leaving school!<\/i>"}, {"c": "h", "h": "<b>❖ Facts and figures:<\/b>"}, {"c": "", "h": "Viet Nam is home to 54 ethnic groups, and each of them has its own unique cultural (7) ______. Meanwhile, a large (8) ______ of teenagers now enjoy food, music, and fashion from other countries. Our school wants to help students understand and respect this diversity."}, {"c": "h", "h": "<b>❖ Join us!<\/b>"}, {"c": "", "h": "Visit our food (9) ______ and try spicy kimchi, sushi, fish and chips, and Vietnamese spring rolls."}, {"c": "", "h": "(10) ______ just watching, join in traditional games such as tug of war and bamboo dancing!"}, {"c": "", "h": "Enjoy live music from (11) ______ US, Korea, and Viet Nam."}, {"c": "", "h": "Follow our page to (12) ______ the latest news about the event."}, {"c": "src", "h": "<i>(Adapted from Global Success 12 – Unit 2)<\/i>"}], "qs": [{"n": 7, "parts": [], "opts": [{"l": "A", "h": "identify"}, {"l": "B", "h": "identical"}, {"l": "C", "h": "identically"}, {"l": "D", "h": "identity"}], "note": ""}, {"n": 8, "parts": [], "opts": [{"l": "A", "h": "amount"}, {"l": "B", "h": "number"}, {"l": "C", "h": "level"}, {"l": "D", "h": "quality"}], "note": ""}, {"n": 9, "parts": [], "opts": [{"l": "A", "h": "booths"}, {"l": "B", "h": "origins"}, {"l": "C", "h": "trends"}, {"l": "D", "h": "customs"}], "note": ""}, {"n": 10, "parts": [], "opts": [{"l": "A", "h": "Because of"}, {"l": "B", "h": "In spite of"}, {"l": "C", "h": "Instead of"}, {"l": "D", "h": "According to"}], "note": ""}, {"n": 11, "parts": [], "opts": [{"l": "A", "h": "a"}, {"l": "B", "h": "an"}, {"l": "C", "h": "∅"}, {"l": "D", "h": "the"}], "note": ""}, {"n": 12, "parts": [], "opts": [{"l": "A", "h": "keep up with"}, {"l": "B", "h": "look up to"}, {"l": "C", "h": "put up with"}, {"l": "D", "h": "come up with"}], "note": ""}]}, {"instr": "Mark the letter A, B, C, or D on your answer sheet to indicate the best arrangement of utterances or sentences to make a meaningful exchange or text in each of the following questions from 13 to 17.", "blocks": [], "qs": [{"n": 13, "parts": [{"l": "a", "h": "Nam: That’s fantastic! I’m so happy for you."}, {"l": "b", "h": "Mark: Hi, Nam! I’m on top of the world. My poem about Viet Nam’s national heroes has just won first prize."}, {"l": "c", "h": "Nam: Hi, Mark! You look so excited today. What’s the good news?"}], "opts": [{"l": "A", "h": "c – b – a"}, {"l": "B", "h": "b – c – a"}, {"l": "C", "h": "a – c – b"}, {"l": "D", "h": "c – a – b"}], "note": "<i>(Adapted from Global Success 12 – Unit 1)<\/i>"}, {"n": 14, "parts": [{"l": "a", "h": "Mai: True, but our sensor taps are going to impress the judges, don’t you think?"}, {"l": "b", "h": "Mai: Do you think our class will win the Green Classroom Competition?"}, {"l": "c", "h": "Nam: I agree. They will also save a lot of water in the long run."}, {"l": "d", "h": "Nam: It’s hard to predict. Other classes also have very creative projects."}, {"l": "e", "h": "Mai: Exactly! I can’t wait to hear the results."}], "opts": [{"l": "A", "h": "b – a – d – c – e"}, {"l": "B", "h": "b – d – a – c – e"}, {"l": "C", "h": "d – b – a – e – c"}, {"l": "D", "h": "b – c – a – d – e"}], "note": "<i>(Adapted from Global Success 12 – Unit 3)<\/i>"}, {"n": 15, "parts": [{"h": "Hi Linda,"}, {"l": "a", "h": "I’m sure you will enjoy it, because there will be food stalls offering dishes from many countries."}, {"l": "b", "h": "Thanks so much for coming to the International Cultural Festival with me last Sunday."}, {"l": "c", "h": "By the way, our school is organising a Cultural Diversity Day next month, and I’d love you to join us."}, {"l": "d", "h": "It was great to see you try bun cha and spring rolls at the Vietnamese booth."}, {"l": "e", "h": "Besides, I’m still excited about meeting the K-pop group and getting their autographs!"}, {"h": "Write back soon."}, {"h": "Mai"}], "opts": [{"l": "A", "h": "d – b – e – a – c"}, {"l": "B", "h": "b – c – a – d – e"}, {"l": "C", "h": "c – a – b – d – e"}, {"l": "D", "h": "b – d – e – c – a"}], "note": "<i>(Adapted from Global Success 12 – Unit 2)<\/i>"}, {"n": 16, "parts": [{"l": "a", "h": "In 1902, he became the first Headmaster of Hanoi Medical University, where he trained many Vietnamese doctors."}, {"l": "b", "h": "Alexandre Yersin was a Swiss-French physician who devoted most of his life to Viet Nam."}, {"l": "c", "h": "To finance this research, he also planted rubber trees."}, {"l": "d", "h": "He passed away in Nha Trang in 1943, and Vietnamese people still remember him with great respect as “Ông Năm”."}, {"l": "e", "h": "After arriving in Indochina in 1890, he explored many regions and later set up a laboratory in Nha Trang to continue his research."}], "opts": [{"l": "A", "h": "e – b – c – a – d"}, {"l": "B", "h": "b – a – e – c – d"}, {"l": "C", "h": "b – e – c – a – d"}, {"l": "D", "h": "b – e – c – d – a"}], "note": "<i>(Adapted from Global Success 12 – Review 1)<\/i>"}, {"n": 17, "parts": [{"l": "a", "h": "To solve this problem, we suggest that the school should provide more recycling bins and ask students to bring reusable bottles."}, {"l": "b", "h": "Every day, hundreds of plastic bottles and takeaway containers are thrown away after only one use."}, {"l": "c", "h": "As a result, a large amount of plastic waste ends up in landfills, where it takes hundreds of years to decompose."}, {"l": "d", "h": "Single-use plastics have become a serious problem at our school."}, {"l": "e", "h": "If these solutions are put into practice, our school will become much greener, and students will develop eco-friendly habits."}], "opts": [{"l": "A", "h": "d – c – b – a – e"}, {"l": "B", "h": "d – b – c – a – e"}, {"l": "C", "h": "d – b – a – c – e"}, {"l": "D", "h": "d – b – c – e – a"}], "note": "<i>(Adapted from Global Success 12 – Unit 3)<\/i>"}]}, {"instr": "Read the following passage about Steve Jobs and mark the letter A, B, C, or D on your answer sheet to indicate the option that best fits each of the numbered blanks from 18 to 22.", "blocks": [{"c": "", "h": "Steve Jobs is regarded as one of the most visionary leaders in the history of technology. Born in San Francisco in 1955, (18) ______. His adoptive father was a mechanic, and his adoptive mother was an accountant. As a boy, Steve was curious about how machines worked, and he spent hours in his father’s garage. At high school, he joined a computer club, (19) ______. The two friends shared a deep love for electronics and later created Apple, (20) ______. Although Jobs dropped out of college, (21) ______. Besides Apple, he also helped produce several animated blockbusters, which are loved by children and adults all over the world. He passed away in 2011 at the age of 56, (22) ______."}, {"c": "src", "h": "<i>(Adapted from Global Success 12 – Unit 1)<\/i>"}], "qs": [{"n": 18, "parts": [], "opts": [{"l": "A", "h": "his adoption by Clara and Paul Jobs took place soon after his birth"}, {"l": "B", "h": "Clara and Paul Jobs adopted him soon after his birth"}, {"l": "C", "h": "he was adopted soon after his birth by Clara and Paul Jobs"}, {"l": "D", "h": "who was adopted soon after his birth by Clara and Paul Jobs"}], "note": ""}, {"n": 19, "parts": [], "opts": [{"l": "A", "h": "which he met his best friend there"}, {"l": "B", "h": "that he met his best friend"}, {"l": "C", "h": "in where he met his best friend"}, {"l": "D", "h": "where he met his best friend"}], "note": ""}, {"n": 20, "parts": [], "opts": [{"l": "A", "h": "a company whose cutting-edge products changed the way people use computers"}, {"l": "B", "h": "a company that its cutting-edge products changed the way people use computers"}, {"l": "C", "h": "a company which its cutting-edge products changed the way people use computers"}, {"l": "D", "h": "a company of which cutting-edge products changed the way people use computers"}], "note": ""}, {"n": 21, "parts": [], "opts": [{"l": "A", "h": "but he never stopped learning and finally became a visionary leader"}, {"l": "B", "h": "he never stopped learning and finally became a visionary leader"}, {"l": "C", "h": "however, he never stopped learning and finally became a visionary leader"}, {"l": "D", "h": "despite he never stopped learning and finally became a visionary leader"}], "note": ""}, {"n": 22, "parts": [], "opts": [{"l": "A", "h": "he left behind a legacy that still inspires millions of people"}, {"l": "B", "h": "and leaving behind a legacy that still inspires millions of people"}, {"l": "C", "h": "to leave behind a legacy that still inspires millions of people"}, {"l": "D", "h": "leaving behind a legacy that still inspires millions of people"}], "note": ""}]}, {"instr": "Read the following passage about plastic pollution and mark the letter A, B, C, or D on your answer sheet to indicate the best answer to each of the following questions from 23 to 30.", "blocks": [{"c": "", "h": "Plastic is cheap, light, and strong, so it is used in almost every part of our daily lives. From water bottles and food containers to shopping bags and toys, it is hard to imagine a world without it. However, its convenience comes at a high price. A single plastic bottle takes about 450 years to decompose in the ground, and nearly all the plastic ever made still exists today. Meanwhile, plastic waste in the oceans is killing <b><u>huge<\/u><\/b> numbers of sea animals every year."}, {"c": "", "h": "Fortunately, we can all take simple steps to deal with this problem. The first step is to reduce the amount of single-use plastics we use. For example, we can carry a reusable water bottle instead of buying new ones every day. Many shops also offer cardboard boxes instead of plastic packaging. <b><u>They<\/u><\/b> are easy to recycle and much kinder to the environment. Choosing such products may cost a little more, but it helps us cut down on waste."}, {"c": "", "h": "The second step is to reuse what we already have. Plastic bags can be used many times, and takeaway containers can be washed and used again to store leftovers. When reuse is impossible, recycling is the next best choice, but it must be done properly. Containers with food inside are <b><u>contaminated<\/u><\/b>, and they can spoil a whole batch of recyclable waste. Therefore, it is important to rinse out containers before putting them in the recycling bin. It is also a good idea to avoid plastics with numbers that are hard to recycle."}, {"c": "", "h": "In short, reducing plastic waste is not the job of governments alone. <u>Small actions, repeated every day by millions of people, can create a cleaner planet for future generations.<\/u> Our green habits may seem unimportant, but together they can make a real difference. That is why we should start building them today."}, {"c": "src", "h": "<i>(Adapted from Global Success 12 – Unit 3)<\/i>"}], "qs": [{"n": 23, "parts": [{"h": "Which of the following is NOT mentioned as a way to deal with plastic waste?"}], "opts": [{"l": "A", "h": "carrying a reusable water bottle"}, {"l": "B", "h": "washing out containers before recycling"}, {"l": "C", "h": "making plant pots from old bottles"}, {"l": "D", "h": "reusing takeaway containers to store leftovers"}], "note": ""}, {"n": 24, "parts": [{"h": "The word <b><u>huge<\/u><\/b> in paragraph 1 is OPPOSITE in meaning to ______."}], "opts": [{"l": "A", "h": "enormous"}, {"l": "B", "h": "harmful"}, {"l": "C", "h": "various"}, {"l": "D", "h": "tiny"}], "note": ""}, {"n": 25, "parts": [{"h": "The word <b><u>They<\/u><\/b> in paragraph 2 refers to ______."}], "opts": [{"l": "A", "h": "single-use plastics"}, {"l": "B", "h": "plastic packaging"}, {"l": "C", "h": "cardboard boxes"}, {"l": "D", "h": "many shops"}], "note": ""}, {"n": 26, "parts": [{"h": "The word <b><u>contaminated<\/u><\/b> in paragraph 3 could be best replaced by ______."}], "opts": [{"l": "A", "h": "protected"}, {"l": "B", "h": "polluted"}, {"l": "C", "h": "reusable"}, {"l": "D", "h": "removed"}], "note": ""}, {"n": 27, "parts": [{"h": "Which of the following best paraphrases the underlined sentence in paragraph 4?"}], "opts": [{"l": "A", "h": "If millions of people take small actions every day, future generations can live on a cleaner planet."}, {"l": "B", "h": "Millions of future generations will repeat small actions every day to create a cleaner planet."}, {"l": "C", "h": "A cleaner planet can only be created by big actions that governments take once a year."}, {"l": "D", "h": "Small actions are too tiring for millions of people to repeat every day to build a cleaner planet."}], "note": ""}, {"n": 28, "parts": [{"h": "Which of the following is TRUE according to the passage?"}], "opts": [{"l": "A", "h": "Most of the plastic ever made has already disappeared."}, {"l": "B", "h": "Food left in containers can spoil other recyclable waste."}, {"l": "C", "h": "Governments alone can solve the problem of plastic waste."}, {"l": "D", "h": "Cardboard boxes are harder to recycle than plastic packaging."}], "note": ""}, {"n": 29, "parts": [{"h": "In which paragraph does the writer mention the damage that plastic causes to nature?"}], "opts": [{"l": "A", "h": "Paragraph 1"}, {"l": "B", "h": "Paragraph 2"}, {"l": "C", "h": "Paragraph 3"}, {"l": "D", "h": "Paragraph 4"}], "note": ""}, {"n": 30, "parts": [{"h": "In which paragraph does the writer explain how to prepare containers for recycling?"}], "opts": [{"l": "A", "h": "Paragraph 1"}, {"l": "B", "h": "Paragraph 2"}, {"l": "C", "h": "Paragraph 3"}, {"l": "D", "h": "Paragraph 4"}], "note": ""}]}, {"instr": "Read the following passage about globalisation and mark the letter A, B, C, or D on your answer sheet to indicate the best answer to each of the following questions from 31 to 40.", "blocks": [{"c": "", "h": "<b>[I]<\/b> Globalisation has brought the world closer together than ever before. <b>[II]<\/b> Thanks to the Internet and international travel, new types of food, music, and fashion spread quickly from one country to another, and many teenagers are keen to <b><u>keep up with<\/u><\/b> what is popular around the world. <b>[III]<\/b> However, this growing connection also puts local cultures under pressure, which has become a topic of debate in many countries. <b>[IV]<\/b>"}, {"c": "", "h": "In Viet Nam, the benefits of globalisation can be seen in daily life. Local people can now enjoy sushi, kimchi, and fish and chips, while restaurants use imported ingredients to create new versions of traditional dishes. Young Vietnamese listen to K-pop and share their own covers online. Meanwhile, fashion designers blend local styles with ideas from abroad. <b><u>They<\/u><\/b> have created modern ao dai that are loved by both young and old people. Many international events, such as food festivals and fashion shows, are now held in big cities, giving people more chances to learn about other cultures. Globalisation also supports faster economic growth and quicker access to new technology."}, {"c": "", "h": "However, globalisation is not entirely positive. When international brands become popular, local products may be pushed out of the market, and some traditional crafts are slowly disappearing. Moreover, young people who spend too much time following foreign trends may lose interest in their own customs and festivals, which weakens their cultural identity. Globalisation also causes serious environmental damage: the <b><u>depletion<\/u><\/b> of natural resources, the production of harmful chemicals, and the growth of waste all contribute to global warming. As a result, some people worry that the world’s cultures will gradually become the same."}, {"c": "", "h": "Clearly, globalisation is a double-edged sword. <u>Globalisation can be beneficial only if cultural identity is protected at the same time.<\/u> Governments, schools, and families all play a part in this process. Schools can organise cultural diversity days, families can keep their traditions alive, and young people can be proud of their national identity while learning from other cultures. In this way, we can enjoy a colourful world without losing our own roots."}, {"c": "src", "h": "<i>(Adapted from Global Success 12 – Unit 2)<\/i>"}], "qs": [{"n": 31, "parts": [{"h": "Where in paragraph 1 does the following sentence best fit?"}, {"h": "<b>For instance, they can try Korean dishes, listen to K-pop songs, and follow Western fashion without leaving their hometowns.<\/b>"}], "opts": [{"l": "A", "h": "[I]"}, {"l": "B", "h": "[II]"}, {"l": "C", "h": "[III]"}, {"l": "D", "h": "[IV]"}], "note": ""}, {"n": 32, "parts": [{"h": "The phrase <b><u>keep up with<\/u><\/b> in paragraph 1 could be best replaced by ______."}], "opts": [{"l": "A", "h": "stay informed about"}, {"l": "B", "h": "get rid of"}, {"l": "C", "h": "look down on"}, {"l": "D", "h": "put up with"}], "note": ""}, {"n": 33, "parts": [{"h": "The word <b><u>They<\/u><\/b> in paragraph 2 refers to ______."}], "opts": [{"l": "A", "h": "local styles"}, {"l": "B", "h": "ideas"}, {"l": "C", "h": "young Vietnamese"}, {"l": "D", "h": "fashion designers"}], "note": ""}, {"n": 34, "parts": [{"h": "According to paragraph 2, which of the following is NOT mentioned as a benefit of globalisation?"}], "opts": [{"l": "A", "h": "new versions of traditional dishes"}, {"l": "B", "h": "quicker access to new technology"}, {"l": "C", "h": "faster economic growth"}, {"l": "D", "h": "lower prices for imported food"}], "note": ""}, {"n": 35, "parts": [{"h": "Which of the following best summarises paragraph 3?"}], "opts": [{"l": "A", "h": "Globalisation encourages people to protect local products and traditions."}, {"l": "B", "h": "Globalisation puts both local cultures and the environment at risk, which worries some people."}, {"l": "C", "h": "Young people lose interest in their customs because they spend too much time online."}, {"l": "D", "h": "International brands are the main cause of global warming and waste."}], "note": ""}, {"n": 36, "parts": [{"h": "The word <b><u>depletion<\/u><\/b> in paragraph 3 is OPPOSITE in meaning to ______."}], "opts": [{"l": "A", "h": "preservation"}, {"l": "B", "h": "consumption"}, {"l": "C", "h": "shortage"}, {"l": "D", "h": "exploitation"}], "note": ""}, {"n": 37, "parts": [{"h": "Which of the following is TRUE according to the passage?"}], "opts": [{"l": "A", "h": "Young Vietnamese only listen to K-pop and never share their own music."}, {"l": "B", "h": "Local products always become more popular when international brands arrive."}, {"l": "C", "h": "Globalisation has no effect on the environment."}, {"l": "D", "h": "Fashion designers have created modern ao dai that both young and old people love."}], "note": ""}, {"n": 38, "parts": [{"h": "Which of the following best paraphrases the underlined sentence in paragraph 4?"}], "opts": [{"l": "A", "h": "Globalisation will always be beneficial, whether or not cultural identity is protected."}, {"l": "B", "h": "Cultural identity can be protected only when globalisation comes to an end."}, {"l": "C", "h": "The benefits of globalisation can be enjoyed only when cultural identity is also protected."}, {"l": "D", "h": "Protecting cultural identity is the only way to stop globalisation from spreading."}], "note": ""}, {"n": 39, "parts": [{"h": "Which of the following can be inferred from the passage?"}], "opts": [{"l": "A", "h": "Cultural identity may be lost if globalisation is not managed carefully."}, {"l": "B", "h": "Young people are the only group responsible for protecting culture."}, {"l": "C", "h": "International brands will soon disappear from Viet Nam."}, {"l": "D", "h": "Globalisation has more benefits than drawbacks for every country."}], "note": ""}, {"n": 40, "parts": [{"h": "Which of the following best summarises the passage?"}], "opts": [{"l": "A", "h": "Globalisation brings new foods, music, and fashion to young people, so there is no need to worry about local cultures."}, {"l": "B", "h": "Globalisation brings benefits such as cultural exchange and faster growth, but it also threatens local identity and the environment, so cultural identity must be protected."}, {"l": "C", "h": "Globalisation causes serious environmental problems such as global warming and the depletion of natural resources."}, {"l": "D", "h": "Vietnamese teenagers are so interested in foreign cultures that they have forgotten their own festivals."}], "note": ""}]}]};
+const KEY="BACDBCDBACDAABDCBCDABDCDCBABACCADDBADCAB";      // đáp án, câu 1 → 40 (sửa ở đây nếu cần)
+const MIN=50;             // thời gian làm bài (phút)
+const SHOW=true;          // true: hiện đáp án đúng sau khi nộp; false: chỉ hiện điểm
+const SK='gk1_en12_de1';
+const K=KEY.split(''),N=K.length,$=s=>document.querySelector(s),$$=s=>document.querySelectorAll(s);
+let st={ans:{}},tm;
+const save=()=>{try{localStorage.setItem(SK,JSON.stringify(st))}catch(e){}};
+const done=()=>Object.keys(st.ans).length,pad=n=>String(n).padStart(2,'0');
+
+const qHtml=q=>`<article class="q" id="q${q.n}"><h3>Question ${q.n}</h3>`+
+ q.parts.map(p=>p.l?`<p><b>${p.l}.</b> ${p.h}</p>`:`<p>${p.h}</p>`).join('')+
+ `<div>${q.opts.map(o=>`<button class="opt" data-q="${q.n}" data-l="${o.l}"><b>${o.l}</b><span>${o.h}</span></button>`).join('')}</div>`+
+ (q.note?`<p class="src">${q.note}</p>`:'')+`</article>`;
+
+function build(){
+ $('#hd').innerHTML=`<div>${EXAM.head.l.join('<br>')}</div><div>${EXAM.head.r.join('<br>')}</div>`;
+ $('#meta').textContent=`${N} câu · ${MIN} phút`;
+ $('#rules').innerHTML=EXAM.head.rules.map(r=>`<li>${r}</li>`).join('');
+ $('#paper').innerHTML=EXAM.sections.map(s=>`<section><p class="ins">${s.instr}</p>`+
+  (s.blocks.length?`<div class="pas">${s.blocks.map(b=>`<p class="${b.c}">${b.h}</p>`).join('')}</div>`:'')+
+  s.qs.map(qHtml).join('')+`</section>`).join('');
+ $('#grid').innerHTML=K.map((_,i)=>`<button data-n="${i+1}">${i+1}</button>`).join('');
+}
+function paint(){
+ $$('.opt').forEach(b=>b.classList.toggle('sel',st.ans[b.dataset.q]===b.dataset.l));
+ $$('#grid button').forEach(b=>b.classList.toggle('dn',!!st.ans[b.dataset.n]));
+ $('#cnt').textContent=done()+'/'+N;
+}
+function tick(){
+ const s=Math.max(0,Math.ceil((st.end-Date.now())/1000));
+ $('#time').textContent=pad(Math.floor(s/60))+':'+pad(s%60);
+ $('.bar').classList.toggle('low',s<300);
+ if(!s)submit(true);
+}
+function run(){
+ $('#start').hidden=true;$('#exam').hidden=false;
+ paint();tm=setInterval(tick,1000);tick();scrollTo(0,0);
+}
+function submit(auto){
+ if(st.done)return;
+ const left=N-done();
+ if(!auto&&!confirm(left?`Còn ${left} câu chưa làm. Nộp bài ngay?`:'Nộp bài?'))return;
+ clearInterval(tm);st.done=true;st.sub=Math.min(Date.now(),st.end);save();finish();
+}
+function finish(){
+ $('#start').hidden=true;$('#exam').hidden=false;$('#sheet').hidden=true;
+ document.body.classList.add('locked');
+ let ok=0;const bad=[];
+ K.forEach((k,i)=>{if(st.ans[i+1]===k)ok++;else bad.push(i+1)});
+ const sc=(ok*10/N).toFixed(2).replace(/\.?0+$/,''),used=Math.round((st.sub-st.start)/1000);
+ $('#time').textContent='Đã nộp';$('.bar').classList.remove('low');
+ $('#sb').hidden=$('#sb2').hidden=true;
+ $('#who').textContent=st.name+(st.cls?' – '+st.cls:'');
+ $('#sc').textContent=sc+' điểm';
+ $('#det').textContent=`Đúng ${ok}/${N} câu · Làm bài ${Math.floor(used/60)} phút ${used%60} giây`+(SHOW&&bad.length?` · Sai hoặc chưa làm: câu ${bad.join(', ')}`:'');
+ $('#res').hidden=false;
+ paint();
+ if(SHOW){
+  $$('.opt').forEach(b=>{const q=b.dataset.q,l=b.dataset.l;
+   if(l===K[q-1])b.classList.add('ok');else if(st.ans[q]===l)b.classList.add('bad')});
+  $$('#grid button').forEach(b=>b.classList.add(bad.includes(+b.dataset.n)?'bad':'ok'));
+ }
+ scrollTo(0,0);
+}
+
+$('#go').onclick=()=>{
+ const n=$('#nm').value.trim();
+ if(!n){$('#nm').focus();alert('Nhập họ tên trước khi làm bài.');return}
+ const t=Date.now();
+ st={name:n,cls:$('#cl').value.trim(),start:t,end:t+MIN*60000,ans:{},done:false};save();run();
+};
+$('#paper').onclick=e=>{
+ const b=e.target.closest('.opt');if(!b||st.done)return;
+ const q=b.dataset.q;
+ if(st.ans[q]===b.dataset.l)delete st.ans[q];else st.ans[q]=b.dataset.l;
+ save();paint();
+};
+$('#sh').onclick=()=>{$('#sheet').hidden=false};
+$('#cl2').onclick=()=>{$('#sheet').hidden=true};
+$('#sheet').onclick=e=>{if(e.target.id==='sheet')e.currentTarget.hidden=true};
+$('#grid').onclick=e=>{
+ const b=e.target.closest('button');if(!b)return;
+ $('#sheet').hidden=true;$('#q'+b.dataset.n).scrollIntoView({behavior:'smooth'});
+};
+$('#sb').onclick=$('#sb2').onclick=()=>submit(false);
+$('#again').onclick=()=>{
+ if(confirm('Xoá bài vừa làm và làm lại từ đầu?')){try{localStorage.removeItem(SK)}catch(e){}location.reload()}
+};
+
+build();
+try{const s=JSON.parse(localStorage.getItem(SK));if(s&&s.end){st=s;st.done?finish():run()}}catch(e){}
+</script>
+</body>
+</html>
